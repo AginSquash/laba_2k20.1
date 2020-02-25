@@ -8,6 +8,7 @@ out/
 # Debug files
 cmake-build-*/
 
+.DS_Store
 # Prerequisites
 *.d
 
