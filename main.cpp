@@ -58,17 +58,15 @@ class DateTime
                 exit(1);
             }
         }
-
         string getDateTime()
         {
             string dt_string = parseInt(dt_year, 4) + "-" + parseInt(dt_mon) + "-" + parseInt(dt_day) + " " + parseInt(dt_hour) + ":" +
                     parseInt(dt_min) + ":" + parseInt(dt_sec);
             return dt_string;
         }
-
         int addDateTime(int year, int mon, int day, int hour, int min, int sec);
-
         int addDateTime(DT_addingType type, int count);
+        int subtractDateTime(int year, int mon, int day, int hour, int min, int sec);
 };
 
 string DateTime::parseInt(int value, int length) {
