@@ -10,6 +10,16 @@ void debug_print(string debug_text)
 #endif
 }
 
+enum DT_addingType
+{
+    AT_YEAR,
+    AT_MON,
+    AT_DAY,
+    AT_HOUR,
+    AT_MIN,
+    AT_SEC
+};
+
 class DateTime
 {
     private:
@@ -58,6 +68,7 @@ class DateTime
 
         int addDateTime(int year, int mon, int day, int hour, int min, int sec);
 
+        int addDateTime(DT_addingType type, int count);
 };
 
 string DateTime::parseInt(int value, int length) {
@@ -69,8 +80,39 @@ string DateTime::parseInt(int value, int length) {
     return  _value;
 }
 
-int DateTime::addDateTime(int year, int mon, int day, int hour, int min, int sec)
-{
+int DateTime::addDateTime(DT_addingType type, int count) {
+    int year = 0;
+    int mon = 0;
+    int day = 0;
+    int hour = 0;
+    int min = 0;
+    int sec = 0;
+
+    switch (type) {
+        case AT_YEAR:
+            year = count;
+            break;
+        case AT_MON:
+            mon = count;
+            break;
+        case AT_DAY:
+            day = count;
+            break;
+        case AT_HOUR:
+            hour = count;
+            break;
+        case AT_MIN:
+            min = count;
+            break;
+        case AT_SEC:
+            sec = count;
+            break;
+    }
+
+    return addDateTime(year, mon, day, hour, min, sec);
+}
+
+int DateTime::addDateTime(int year, int mon, int day, int hour, int min, int sec) {
     if (checkDate(year, mon, day, true) && (checkRange(hour, 0, 23)) && checkRange(min, 0, 59) && (checkRange(sec, 0, 59)) ) {
         int _sec = dt_sec + sec;
         while (_sec > 59) {
@@ -149,6 +191,7 @@ int DateTime::addDateTime(int year, int mon, int day, int hour, int min, int sec
         }
         debug_print("mon ok");
     }
+    return 0;
 }
 
 bool DateTime::checkDate(int year, int mon, int day, bool isAddingDate) {
@@ -193,7 +236,8 @@ bool DateTime::checkRange(int value, int min, int max) {
 
 int main() {
     DateTime dt(2020, 02, 24, 13, 10, 10);
-    dt.addDateTime(0, 7, 25, 23, 56, 58);
+    //dt.addDateTime(0, 7, 25, 23, 56, 58);
+    dt.addDateTime(AT_DAY, 5);
     cout << dt.getDateTime();
     return 0;
 }
