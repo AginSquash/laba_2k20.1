@@ -3,4 +3,4 @@ project(laba8)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(laba8 main.cpp)
+add_executable(laba8 main.cpp DT.cpp DT.h)
