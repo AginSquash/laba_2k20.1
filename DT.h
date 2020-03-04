@@ -30,7 +30,7 @@ private:
     std::string parseInt(int value, int length = 2);
 
 public:
-    DateTime(int year = 0, int mon = 0, int day = 0, int hour = 0, int min = 0, int sec = 0, bool isIntegrated = false)
+    DateTime(int year, int mon, int day, int hour, int min, int sec, bool isIntegrated = false)
     {
         if (checkDate(year, mon, day))
         {
