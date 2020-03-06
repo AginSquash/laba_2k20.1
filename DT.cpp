@@ -161,7 +161,7 @@ bool DateTime::checkDate(int year, int mon, int day, bool isAddingDate) {
         default:
             if (isAddingDate && mon == 0)
                 return true;
-            std::cout << "Month is incorrect" << std::endl;
+            //std::cout << "Month is incorrect" << std::endl;
             return false;
     }
 }
@@ -186,10 +186,7 @@ int DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, in
 
 }
 
-DateTime::DateTime()
-{
-
-}
+DateTime::DateTime() {}
 
 DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool isIntegrated)
 {
