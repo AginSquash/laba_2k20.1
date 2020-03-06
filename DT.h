@@ -6,6 +6,7 @@
 #define LABA8_DT_H
 
 #include <iostream>
+#include <string> //fix for windows
 
 enum DT_addingType
 {

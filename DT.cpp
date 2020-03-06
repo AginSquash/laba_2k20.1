@@ -183,7 +183,7 @@ std::string DateTime::getDateTime()
 
 int DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec)
 {
-
+    return 0;
 }
 
 DateTime::DateTime() {}
