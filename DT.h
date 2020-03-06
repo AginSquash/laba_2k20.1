@@ -31,6 +31,7 @@ private:
 
 public:
     DateTime(int year, int mon, int day, int hour, int min, int sec, bool isIntegrated = false);
+    DateTime();
     std::string getDateTime();
     bool checkDate(int year, int mon, int day, bool isAddingDate = false);
     int addDateTime(int year, int mon, int day, int hour, int min, int sec);

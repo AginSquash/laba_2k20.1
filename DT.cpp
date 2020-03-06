@@ -181,6 +181,16 @@ std::string DateTime::getDateTime()
     return dt_string;
 }
 
+int DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec)
+{
+
+}
+
+DateTime::DateTime()
+{
+
+}
+
 DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool isIntegrated)
 {
     if (checkDate(year, mon, day))
@@ -203,7 +213,7 @@ DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool 
         }
     }
     else {
-        std::cout << "Data is incorrect" << std::endl;
+        std::cout << "Date is incorrect" << std::endl;
         exit(1);
     }
 }
