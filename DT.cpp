@@ -173,3 +173,37 @@ bool DateTime::checkRange(int value, int min, int max) {
         return false;
     return true;
 }
+
+std::string DateTime::getDateTime()
+{
+    std::string dt_string = parseInt(dt_year, 4) + "-" + parseInt(dt_mon) + "-" + parseInt(dt_day) + " " + parseInt(dt_hour) + ":" +
+                            parseInt(dt_min) + ":" + parseInt(dt_sec);
+    return dt_string;
+}
+
+DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool isIntegrated)
+{
+    if (checkDate(year, mon, day))
+    {
+        dt_year = year;
+        dt_mon = mon;
+        dt_day = day;
+        if (!isIntegrated)
+            std::cout << "Date - OK" << std::endl;
+        if ((checkRange(hour, 0, 23)) && checkRange(min, 0, 59) &&  (checkRange(sec, 0, 59)))
+        {
+            dt_hour = hour;
+            dt_min = min;
+            dt_sec = sec;
+            if (!isIntegrated)
+                std::cout << "Time - OK" << std::endl;
+        } else {
+            std::cout << "Time is incorrect" << std::endl;
+            exit(1);
+        }
+    }
+    else {
+        std::cout << "Data is incorrect" << std::endl;
+        exit(1);
+    }
+}
