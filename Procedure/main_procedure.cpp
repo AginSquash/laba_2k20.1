@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include "../collab/Date.h"
 
 using namespace std;
 
@@ -73,7 +74,8 @@ std::string parseInt(int value, int length = 2) {
 
 std::string getDateTime(int dt_year, int dt_mon, int dt_day, int dt_hour, int dt_min, int dt_sec)
 {
-    std::string dt_string = parseInt(dt_year, 4) + "-" + parseInt(dt_mon) + "-" + parseInt(dt_day) + " " + parseInt(dt_hour) + ":" +
+    Date date(dt_day, dt_mon, dt_year);
+    std::string dt_string = parseInt(dt_year, 4) + "-" + parseInt(dt_mon) + "-" + parseInt(dt_day) +  " (" + date.getDayResult() +  ") " + " " + parseInt(dt_hour) + ":" +
                             parseInt(dt_min) + ":" + parseInt(dt_sec);
     return dt_string;
 }
@@ -266,9 +268,7 @@ std::string subtractDateTime(int year, int mon, int day, int hour, int min, int 
     }
     debug_print("mon ok");
 
-    std::string dt_string = parseInt(t_year, 4) + "-" + parseInt(t_mon) + "-" + parseInt(t_day) + " " + parseInt(t_hour) + ":" +
-                            parseInt(t_min) + ":" + parseInt(t_sec);
-    return dt_string;
+    return getDateTime(t_year, t_mon,  t_day,  t_hour,  t_min,  t_sec);
 }
 
 bool checkDateTime(int year, int mon, int day, int hour, int min, int sec) {
@@ -284,6 +284,7 @@ int main() {
     int PROCEDURE_dt_year; int PROCEDURE_dt_mon; int PROCEDURE_dt_day; int PROCEDURE_dt_hour; int PROCEDURE_dt_min; int PROCEDURE_dt_sec;
     cout << "Введите год, месяц, день, час, минуту и секунду" <<endl;
     cin >> PROCEDURE_dt_year >> PROCEDURE_dt_mon >> PROCEDURE_dt_day >> PROCEDURE_dt_hour >> PROCEDURE_dt_min >> PROCEDURE_dt_sec;
+    cout << getDateTime(PROCEDURE_dt_year, PROCEDURE_dt_mon, PROCEDURE_dt_day, PROCEDURE_dt_hour, PROCEDURE_dt_min, PROCEDURE_dt_sec) << endl;
     cout << "Что вы хотите сделать?\n 1 - добавить дату\n 2 - вычесть дату\n 3 - проверить дату\n 4 - добавить N лет/дней/месяец/etc\n 5 - выйти" << endl;
     bool cont = true;
     while (cont)
