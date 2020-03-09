@@ -4,13 +4,10 @@
 using namespace std;
 
 int main() {
-    DateTime dt(2020, 02, 24, 13, 10, 10);
-    dt.addDateTime(0, 7, 25, 23, 56, 58);
+    DateTime dt(2020, 02, 24, 0, 0, 0);
+    //dt.addDateTime(0, 02, 25, 23, 56, 58);
+    cout << dt.subtractDateTime(0,5, 10, 0,0,0) << endl;
     //dt.addDateTime(AT_DAY, 5);
-    cout << dt.getDateTime();
-
-    //DateTime dt;
-    //bool isOk = dt.checkDate(2014, 5, 60);
-    //cout << isOk;
+    //cout << dt.getDateTime();
     return 0;
 }

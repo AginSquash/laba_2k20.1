@@ -181,9 +181,83 @@ std::string DateTime::getDateTime()
     return dt_string;
 }
 
-int DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec)
+std::string DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec)
 {
-    return 0;
+    int t_year = dt_year; int t_mon = dt_mon; int t_day = dt_day;
+    int t_hour = dt_hour; int t_min = dt_min; int t_sec = dt_sec;
+
+    t_sec -= sec;
+    while (t_sec < 0)
+    {
+        min++;
+        t_sec = 60 + t_sec;
+    }
+
+    t_min -= min;
+    while (t_min < 0)
+    {
+        hour++;
+        t_min = 60 + t_min;
+    }
+
+    t_hour -= hour;
+    while (t_hour < 0)
+    {
+        day++;
+        t_hour = 24 + t_hour;
+    }
+
+    t_mon -= mon;
+    while(t_mon < 1)
+    {
+        year++;
+        t_mon = 12 + t_mon;
+    }
+
+    t_year -= year;
+
+    t_day -= day;
+    int dayInMonth;
+    while (t_day < 0) {
+        t_mon--;
+        switch (t_mon) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                dayInMonth = 31;
+                break;
+            case 2:
+                if (t_year % 4 == 0 && (t_year % 100 != 0 || t_year % 400 == 0))
+                    dayInMonth = 29;
+                else
+                    dayInMonth = 28;
+                break;
+                // апрель, июнь, сентябрь и ноябрь
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                dayInMonth = 30;
+                break;
+        }
+            t_day = dayInMonth - t_day;
+        debug_print("repeating");
+    }
+    debug_print("day ok");
+
+    while (t_mon < 1) {
+        t_year--;
+        t_mon = 12 + t_mon;
+    }
+    debug_print("mon ok");
+
+    std::string dt_string = parseInt(t_year, 4) + "-" + parseInt(t_mon) + "-" + parseInt(t_day) + " " + parseInt(t_hour) + ":" +
+                            parseInt(t_min) + ":" + parseInt(t_sec);
+    return dt_string;
 }
 
 DateTime::DateTime() {}
