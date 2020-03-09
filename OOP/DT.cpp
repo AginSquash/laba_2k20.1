@@ -4,7 +4,6 @@
 
 #include "DT.h"
 
-#define DEBUG
 void debug_print(std::string debug_text)
 {
 #ifdef DEBUG
@@ -21,7 +20,7 @@ std::string DateTime::parseInt(int value, int length) {
     return  _value;
 }
 
-int DateTime::addDateTime(DT_addingType type, int count) {
+int DateTime::addDateTime(int type, int count) {
     int year = 0;
     int mon = 0;
     int day = 0;
@@ -54,7 +53,7 @@ int DateTime::addDateTime(DT_addingType type, int count) {
 }
 
 int DateTime::addDateTime(int year, int mon, int day, int hour, int min, int sec) {
-    if (checkDate(year, mon, day, true) && (checkRange(hour, 0, 23)) && checkRange(min, 0, 59) && (checkRange(sec, 0, 59)) ) {
+    if (checkDate(year, mon, day, true)  ) {
         int _sec = dt_sec + sec;
         while (_sec > 59) {
             min++;
@@ -286,5 +285,14 @@ DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool 
     else {
         std::cout << "Date is incorrect" << std::endl;
         exit(1);
+    }
+}
+
+bool DateTime::checkDateTime(int year, int mon, int day, int hour, int min, int sec) {
+    if (checkDate(year, mon, day) && (checkRange(hour, 0, 23)) && checkRange(min, 0, 59) && (checkRange(sec, 0, 59)) )
+    {
+        return true;
+    } else {
+        return false;
     }
 }

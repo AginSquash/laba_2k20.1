@@ -10,12 +10,12 @@
 
 enum DT_addingType
 {
-    AT_YEAR,
-    AT_MON,
-    AT_DAY,
-    AT_HOUR,
-    AT_MIN,
-    AT_SEC
+    AT_YEAR = 1,
+    AT_MON = 2,
+    AT_DAY = 3,
+    AT_HOUR = 4,
+    AT_MIN = 5,
+    AT_SEC = 6
 };
 
 class DateTime
@@ -35,8 +35,9 @@ public:
     DateTime();
     std::string getDateTime();
     bool checkDate(int year, int mon, int day, bool isAddingDate = false);
+    bool checkDateTime(int year, int mon, int day, int hour, int min, int sec);
     int addDateTime(int year, int mon, int day, int hour, int min, int sec);
-    int addDateTime(DT_addingType type, int count);
+    int addDateTime(int type, int count);
     std::string subtractDateTime(int year, int mon, int day, int hour, int min, int sec);
 };
 
