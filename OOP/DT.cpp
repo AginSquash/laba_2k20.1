@@ -2,9 +2,7 @@
 // Created by Vlad Vrublevsky on 04.03.2020.
 //
 
-/*
 #include "DT.h"
-
 
 void debug_print(std::string debug_text)
 {
@@ -298,4 +296,3 @@ bool DateTime::checkDateTime(int year, int mon, int day, int hour, int min, int 
         return false;
     }
 }
- */
