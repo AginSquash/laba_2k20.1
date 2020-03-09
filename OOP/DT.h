@@ -1,7 +1,7 @@
 //
 // Created by Vlad Vrublevsky on 04.03.2020.
 //
-
+/*
 #ifndef LABA8_DT_H
 #define LABA8_DT_H
 
@@ -42,3 +42,4 @@ public:
 };
 
 #endif LABA8_DT_H
+*/
