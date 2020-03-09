@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string> //fix for windows
+#include "../collab/Date.h"
 
 enum DT_addingType
 {
@@ -21,12 +22,12 @@ enum DT_addingType
 class DateTime
 {
 private:
-    int dt_sec;
-    int dt_min;
-    int dt_hour;
-    int dt_day;
-    int dt_mon;
-    int dt_year;
+    int dt_sec  = 0;
+    int dt_min  = 0;
+    int dt_hour = 0;
+    int dt_day  = 0;
+    int dt_mon  = 0;
+    int dt_year = 0;
     bool checkRange(int value, int min, int max);
     std::string parseInt(int value, int length = 2);
 

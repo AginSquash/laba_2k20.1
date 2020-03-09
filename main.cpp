@@ -2,7 +2,7 @@
 
 using namespace std;
 
-#define DEBUG
+//#define DEBUG
 
 #include "OOP/DT.h"
 
@@ -17,10 +17,11 @@ int OOP()
     cin >> year >> mon >> day >> hour >> min >> sec;
     DateTime dt(year, mon, day, hour, min, sec);
 #endif
-    cout << "Что вы хотите сделать?\n 1 - добавить дату\n 2 - вычесть дату\n 3 - проверить дату\n 4 - добавить N лет/дней/месяец/etc\n 5 - выйти" << endl;
+    cout << dt.getDateTime() << endl;
     bool cont = true;
     while (cont)
     {
+        cout << "Что вы хотите сделать?\n 1 - добавить дату\n 2 - вычесть дату\n 3 - проверить дату\n 4 - добавить N лет/дней/месяец/etc\n 5 - выйти" << endl;
         int chose;
         cin >> chose;
         switch (chose) {
@@ -58,8 +59,8 @@ int OOP()
             case 5:
                 exit(0);
                 break;
-        }
 
+        }
     }
 }
 

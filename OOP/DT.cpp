@@ -175,7 +175,8 @@ bool DateTime::checkRange(int value, int min, int max) {
 
 std::string DateTime::getDateTime()
 {
-    std::string dt_string = parseInt(dt_year, 4) + "-" + parseInt(dt_mon) + "-" + parseInt(dt_day) + " " + parseInt(dt_hour) + ":" +
+    Date date(dt_day, dt_mon, dt_year);
+    std::string dt_string = parseInt(dt_year, 4) + "-" + parseInt(dt_mon) + "-" + parseInt(dt_day) +  " (" + date.getDayResult() +  ") " + " " + parseInt(dt_hour) + ":" +
                             parseInt(dt_min) + ":" + parseInt(dt_sec);
     return dt_string;
 }
