@@ -255,8 +255,9 @@ std::string DateTime::subtractDateTime(int year, int mon, int day, int hour, int
     }
     debug_print("mon ok");
 
-    std::string dt_string = parseInt(t_year, 4) + "-" + parseInt(t_mon) + "-" + parseInt(t_day) + " " + parseInt(t_hour) + ":" +
-                            parseInt(t_min) + ":" + parseInt(t_sec);
+    Date date(dt_day, dt_mon, dt_year);
+    std::string dt_string = parseInt(dt_year, 4) + "-" + parseInt(dt_mon) + "-" + parseInt(dt_day) +  " (" + date.getDayResult() +  ") " + " " + parseInt(dt_hour) + ":" +
+                            parseInt(dt_min) + ":" + parseInt(dt_sec);
     return dt_string;
 }
 
