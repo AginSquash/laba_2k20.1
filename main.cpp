@@ -1,13 +1,13 @@
 #include <iostream>
 
+using namespace std;
 
 #define DEBUG
 
 #include "OOP/DT.h"
 
-using namespace std;
-
-int main() {
+int OOP()
+{
     int year; int mon; int day; int hour; int min; int sec;
 #ifdef DEBUG
     DateTime dt(2020, 3, 9, 14, 05, 00);
@@ -61,5 +61,10 @@ int main() {
         }
 
     }
+}
+
+
+int main() {
+    OOP();
     return 0;
 }

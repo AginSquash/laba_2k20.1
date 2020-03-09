@@ -3,4 +3,5 @@ project(laba8)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(laba8 main.cpp OOP/DT.cpp OOP/DT.h Procedure/DT_Procedure.cpp Procedure/DT_Procedure.h)
+#add_executable(laba8 Procedure/main_procedure.cpp)
+add_executable(laba8 main.cpp OOP/DT.h OOP/DT.cpp)
