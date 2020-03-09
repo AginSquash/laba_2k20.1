@@ -1,14 +1,13 @@
+/*
+ * by Karina Romanova
+ * https://github.com/KarinaRomanova/1Lab
+ */
+
 #ifndef LABA8_DATE_H
 #define LABA8_DATE_H
 
 #include<string>
 #include<iostream>
-
-
-/*
- * by Karina Romanova
- * https://github.com/KarinaRomanova/1Lab
- */
 
 using namespace std;
 

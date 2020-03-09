@@ -12,11 +12,11 @@
 enum DT_addingType
 {
     AT_YEAR = 1,
-    AT_MON = 2,
-    AT_DAY = 3,
+    AT_MON  = 2,
+    AT_DAY  = 3,
     AT_HOUR = 4,
-    AT_MIN = 5,
-    AT_SEC = 6
+    AT_MIN  = 5,
+    AT_SEC  = 6
 };
 
 class DateTime
