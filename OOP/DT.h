@@ -39,7 +39,7 @@ public:
     bool checkDateTime(int year, int mon, int day, int hour, int min, int sec);
     int addDateTime(int year, int mon, int day, int hour, int min, int sec);
     int addDateTime(int type, int count);
-    std::string subtractDateTime(int year, int mon, int day, int hour, int min, int sec);
+    DateTime subtractDateTime(int year, int mon, int day, int hour, int min, int sec);
 };
 
 #endif LABA8_DT_H

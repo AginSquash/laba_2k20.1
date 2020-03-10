@@ -31,11 +31,13 @@ int OOP()
                 dt.addDateTime(year, mon, day, hour, min, sec);
                 cout << dt.getDateTime() << endl;
                 break;
-            case 2:
-                cout << "Введите год, месяц, день, час, минуту и секунду" <<endl;
+            case 2: {
+                cout << "Введите год, месяц, день, час, минуту и секунду" << endl;
                 cin >> year >> mon >> day >> hour >> min >> sec;
-                cout <<  dt.subtractDateTime(year, mon, day, hour, min, sec) << endl;
+                DateTime dt_sub = dt.subtractDateTime(year, mon, day, hour, min, sec);
+                cout << dt_sub.getDateTime() << endl;
                 break;
+            }
             case 3:
                 cout << "Введите год, месяц, день, час, минуту и секунду" <<endl;
                 cin >> year >> mon >> day >> hour >> min >> sec;

@@ -181,7 +181,7 @@ std::string DateTime::getDateTime()
     return dt_string;
 }
 
-std::string DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec)
+DateTime DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec)
 {
     int t_year = dt_year; int t_mon = dt_mon; int t_day = dt_day;
     int t_hour = dt_hour; int t_min = dt_min; int t_sec = dt_sec;
@@ -255,10 +255,8 @@ std::string DateTime::subtractDateTime(int year, int mon, int day, int hour, int
     }
     debug_print("mon ok");
 
-    Date date(dt_day, dt_mon, dt_year);
-    std::string dt_string = parseInt(dt_year, 4) + "-" + parseInt(dt_mon) + "-" + parseInt(dt_day) +  " (" + date.getDayResult() +  ") " + " " + parseInt(dt_hour) + ":" +
-                            parseInt(dt_min) + ":" + parseInt(dt_sec);
-    return dt_string;
+    DateTime dt_new(t_year, t_mon, t_day, t_hour, t_min, t_sec);
+    return dt_new;
 }
 
 DateTime::DateTime() {}
