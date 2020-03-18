@@ -20,24 +20,13 @@ Date::Date(int date_day, int date_month, int date_year)
     dayResult = (day + (31 * monthcalc) / 12 + yearcalc + yearcalc / 4 - yearcalc / 100 + yearcalc / 400) % 7;
 }
 
-void Date::setDayResult()
-{
-    // Legacy
-    /*
-    int a;
-    int yearcalc;
-    int monthcalc;
-    a = (14 - month) / 12;
-    yearcalc = year - a;
-    monthcalc = month + (12 * a) - 2;
-    dayResult = (day + (31 * monthcalc) / 12 + yearcalc + yearcalc / 4 - yearcalc / 100 + yearcalc / 400) % 7;
-    */
-}
-
 std::string Date::getDayResult()
 {
     string dayString;
     switch (dayResult) {
+        case 0:
+            dayString = "Sunday";
+            break;
         case 1:
             dayString = "Monday";
             break;
@@ -55,10 +44,8 @@ std::string Date::getDayResult()
             break;
         case 6:
             dayString = "Saturday";
-        case 7:
-            dayString = "Sunday";
         default:
-            cout << "Error";
+            cout << "Error in DATE.cpp" << endl;
             break;
     }
     return dayString;

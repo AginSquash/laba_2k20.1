@@ -4,6 +4,8 @@
 
 #include "DT.h"
 
+#define DEBUG
+
 void debug_print(std::string debug_text)
 {
 #ifdef DEBUG
@@ -13,6 +15,10 @@ void debug_print(std::string debug_text)
 
 std::string DateTime::parseInt(int value, int length) {
     std::string _value = std::to_string(value);
+    if (value < 0)
+    {
+        return _value;
+    }
     while (_value.length() < length)
     {
         _value = "0" + _value;
@@ -255,27 +261,27 @@ DateTime DateTime::subtractDateTime(int year, int mon, int day, int hour, int mi
     }
     debug_print("mon ok");
 
-    DateTime dt_new(t_year, t_mon, t_day, t_hour, t_min, t_sec);
+    DateTime dt_new(t_year, t_mon, t_day, t_hour, t_min, t_sec, true);
     return dt_new;
 }
 
 DateTime::DateTime() {}
 
-DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool isIntegrated)
+DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool isAxiom)
 {
-    if (checkDate(year, mon, day))
+    if (checkDate(year, mon, day) || isAxiom)
     {
         dt_year = year;
         dt_mon = mon;
         dt_day = day;
-        if (!isIntegrated)
+        if (!isAxiom)
             std::cout << "Date - OK" << std::endl;
         if ((checkRange(hour, 0, 23)) && checkRange(min, 0, 59) &&  (checkRange(sec, 0, 59)))
         {
             dt_hour = hour;
             dt_min = min;
             dt_sec = sec;
-            if (!isIntegrated)
+            if (!isAxiom)
                 std::cout << "Time - OK" << std::endl;
         } else {
             std::cout << "Time is incorrect" << std::endl;

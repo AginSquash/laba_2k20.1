@@ -19,7 +19,6 @@ private:
     int dayResult;
 public:
     Date(int date_day, int date_month, int date_year); //установка даты
-    void setDayResult();									  //номер дня в неделе
     std::string getDayResult();										  //название дня
     void getWeekend();										  //выходные
 };
