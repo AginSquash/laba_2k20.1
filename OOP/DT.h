@@ -28,6 +28,7 @@ private:
     int dt_day  = 0;
     int dt_mon  = 0;
     int dt_year = 0;
+    bool axiom = false;
     bool checkRange(int value, int min, int max);
     std::string parseInt(int value, int length = 2);
 
