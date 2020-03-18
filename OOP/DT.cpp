@@ -334,13 +334,13 @@ int DateTime::dayInMonth(int month, bool isLeapers) {
     }
 }
 
-void DateTime::parseDateTime(int year, int mon, int day, int hour, int min, int sec) {
+unsigned long long DateTime::parseDateTime(int year, int mon, int day, int hour, int min, int sec) {
     bool isLeapers = false;
     if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
     {
         isLeapers = true;
     }
-    long long days = 0;
+    unsigned long long days = 0;
     while (year != 0)
     {
         days += 365;
@@ -357,7 +357,7 @@ void DateTime::parseDateTime(int year, int mon, int day, int hour, int min, int 
     days += day;
 
     dt_days = days;
-    //cout << days << endl;
+    return days;
 }
 
 std::string DateTime::getTime() {
@@ -393,14 +393,14 @@ std::string DateTime::getTime() {
 
     bool cont = true;
     while (cont) {
-        if (dayInMonth(mon, isLeapers) < days)
+        if (days > dayInMonth(mon, isLeapers))
         {
             days -= dayInMonth(mon, isLeapers);
             mon++;
         } else { cont = false; break; }
     }
 
-    day = days + 1;
+    day = days;
 
     //9-11-29 ===== 9-11-28
     //9-11-30 ===== 9-11-29

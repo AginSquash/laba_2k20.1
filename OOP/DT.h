@@ -38,7 +38,7 @@ private:
     int dayInMonth(int month, bool isLeapers);
 
 public:
-    void parseDateTime(int year, int mon, int day, int hour, int min, int sec);
+    unsigned long long parseDateTime(int year, int mon, int day, int hour, int min, int sec);
     std::string getTime();
 
     DateTime(int year, int mon, int day, int hour, int min, int sec, bool isAxiom = false);

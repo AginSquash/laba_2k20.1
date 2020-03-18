@@ -125,13 +125,13 @@ int main() {
                 }
 
                 DateTime dt;
-                dt.parseDateTime(year, mon, day, 0,0,0);
+                unsigned long long days = dt.parseDateTime(year, mon, day, 0,0,0);
                 std::string dt_string = std::to_string(year) + "-" + std::to_string(mon) + "-" + std::to_string(day);
                 std::string getTime = dt.getTime();
                 if (dt_string != getTime)
                 {
-                    cout << dt_string << " ===== " << getTime << endl;
-                }
+                    cout << dt_string << " ===== " << getTime << " (" << days << ")"<< endl;
+                } else { cout << dt_string << " OK!"  << " (" << days << ")" << endl; }
             }
         }
     }
