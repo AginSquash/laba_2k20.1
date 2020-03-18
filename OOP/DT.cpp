@@ -308,3 +308,113 @@ bool DateTime::checkDateTime(int year, int mon, int day, int hour, int min, int 
         return false;
     }
 }
+
+int DateTime::dayInMonth(int month, bool isLeapers) {
+    switch (month)
+    {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            return 31;
+        case 2:
+            if (isLeapers)
+                return 29;
+            else
+                return 28;
+            // апрель, июнь, сентябрь и ноябрь
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            return 30;
+    }
+}
+
+void DateTime::parseDateTime(int year, int mon, int day, int hour, int min, int sec) {
+    bool isLeapers = false;
+    if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+    {
+        isLeapers = true;
+    }
+    long long days = 0;
+    while (year != 0)
+    {
+        days += 365;
+        if (year % 4 == 0) {
+            days += 1;
+        }
+        year--;
+    }
+    while (mon > 1)
+    {
+        days += dayInMonth(mon, isLeapers);
+        mon--;
+    }
+    days += day;
+
+    dt_days = days;
+    //cout << days << endl;
+}
+
+std::string DateTime::getTime() {
+    bool isLeapers = false;
+    long long days = dt_days;
+    int year = 0; int mon = 1; int day = 1;
+
+    year = days / 365.25;
+    days -= year * 365;
+    days -= year / 4;
+
+    if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+    {
+        days -= 1;
+        isLeapers = true;
+    }
+
+    bool cont = true;
+    while (cont) {
+        if (dayInMonth(mon, isLeapers) < days)
+        {
+            days -= dayInMonth(mon, isLeapers);
+            mon++;
+        } else { cont = false; }
+    }
+
+    day = days + 1;
+
+    //9-11-29 ===== 9-11-28
+    //9-11-30 ===== 9-11-29
+
+    //9-11-0 ===== 9-10-31
+    //9-11-1 ===== 9-10-32
+    
+    std::string dt_string = std::to_string(year) + "-" + std::to_string(mon) + "-" + std::to_string(day);
+    return dt_string;
+
+
+    cout << year << endl;
+    cout << mon << endl;
+    cout << day << endl;
+    /*
+    while (days > 365 || ((days > 366) && isLeapers))
+    {
+        year++;
+        days -= 365;
+        if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+        {
+            days -= 1;
+        }
+        if ((year+1) % 4 == 0 && ((year+1) % 100 != 0 || (year+1) % 400 == 0)) {
+            isLeapers = true;
+        } else {
+            isLeapers = false;
+        }
+    }
+
+    while (days < )
+     */
+}

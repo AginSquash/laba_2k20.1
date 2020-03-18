@@ -28,11 +28,19 @@ private:
     int dt_day  = 0;
     int dt_mon  = 0;
     int dt_year = 0;
+
+    long long dt_days;
+    long long dt_seconds;
+
     bool axiom = false;
     bool checkRange(int value, int min, int max);
     std::string parseInt(int value, int length = 2);
+    int dayInMonth(int month, bool isLeapers);
 
 public:
+    void parseDateTime(int year, int mon, int day, int hour, int min, int sec);
+    std::string getTime();
+
     DateTime(int year, int mon, int day, int hour, int min, int sec, bool isAxiom = false);
     DateTime();
     std::string getDateTime();
