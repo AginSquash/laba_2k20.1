@@ -344,7 +344,7 @@ void DateTime::parseDateTime(int year, int mon, int day, int hour, int min, int 
     while (year != 0)
     {
         days += 365;
-        if (year % 4 == 0) {
+        if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
             days += 1;
         }
         year--;
@@ -365,13 +365,29 @@ std::string DateTime::getTime() {
     long long days = dt_days;
     int year = 0; int mon = 1; int day = 1;
 
-    year = days / 365.25;
+    /*year = days / 365;
     days -= year * 365;
     days -= year / 4;
+    */
+
+    while (days > 365 || ((days > 366) && isLeapers))
+    {
+        year++;
+        days -= 365;
+        if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+        {
+            days -= 1;
+        }
+        if ((year+1) % 4 == 0 && ((year+1) % 100 != 0 || (year+1) % 400 == 0)) {
+            isLeapers = true;
+        } else {
+            isLeapers = false;
+        }
+    }
 
     if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
     {
-        days -= 1;
+        //days -= 1;
         isLeapers = true;
     }
 
@@ -381,7 +397,7 @@ std::string DateTime::getTime() {
         {
             days -= dayInMonth(mon, isLeapers);
             mon++;
-        } else { cont = false; }
+        } else { cont = false; break; }
     }
 
     day = days + 1;
@@ -391,7 +407,7 @@ std::string DateTime::getTime() {
 
     //9-11-0 ===== 9-10-31
     //9-11-1 ===== 9-10-32
-    
+
     std::string dt_string = std::to_string(year) + "-" + std::to_string(mon) + "-" + std::to_string(day);
     return dt_string;
 

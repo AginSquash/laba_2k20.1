@@ -108,11 +108,11 @@ int main() {
     dt.parseDateTime(2020, 5, 30, 0,0,0);
     dt.getTime();
 
-    for (int year = 0; year < 10; year++)
+    for (int year = 2010; year < 2020; year++)
     {
-        for (int mon = 1; mon < 12; mon++)
+        for (int mon = 1; mon <= 12; mon++)
         {
-            for (int day = 0; day < 31; day++)
+            for (int day = 1; day <= 31; day++)
             {
                 bool isLeapers = false;
                 if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
