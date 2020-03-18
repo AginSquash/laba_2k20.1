@@ -15,7 +15,7 @@ void debug_print(std::string debug_text)
 
 std::string DateTime::parseInt(int value, int length) {
     std::string _value = std::to_string(value);
-    if (value < 0)
+    if (axiom)
     {
         return _value;
     }
@@ -182,7 +182,12 @@ bool DateTime::checkRange(int value, int min, int max) {
 std::string DateTime::getDateTime()
 {
     Date date(dt_day, dt_mon, dt_year);
-    std::string dt_string = parseInt(dt_year, 4) + "-" + parseInt(dt_mon) + "-" + parseInt(dt_day) +  " (" + date.getDayResult() +  ") " + " " + parseInt(dt_hour) + ":" +
+    std::string weekDay = "";
+    if (!axiom)
+    {
+        weekDay = " (" + date.getDayResult() +  ") ";
+    }
+    std::string dt_string = parseInt(dt_year, 4) + "-" + parseInt(dt_mon) + "-" + parseInt(dt_day) + weekDay + " " + parseInt(dt_hour) + ":" +
                             parseInt(dt_min) + ":" + parseInt(dt_sec);
     return dt_string;
 }
@@ -269,6 +274,7 @@ DateTime::DateTime() {}
 
 DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool isAxiom)
 {
+    axiom = isAxiom;
     if (checkDate(year, mon, day) || isAxiom)
     {
         dt_year = year;

@@ -10,7 +10,7 @@ int OOP()
 {
     int year; int mon; int day; int hour; int min; int sec;
 #ifdef DEBUG
-    DateTime dt(2019, 9, 22, 0, 00, 00);
+    DateTime dt(2020, 03, 18, 0, 00, 00);
 #endif
 #ifndef DEBUG
     cout << "Введите год, месяц, день, час, минуту и секунду" <<endl;
