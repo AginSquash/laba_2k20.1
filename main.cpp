@@ -106,9 +106,9 @@ int main() {
     //OOP();
     DateTime dt;
     dt.parseDateTime(2016, 12, 31, 0,0,0);
-    dt.getTime();
+    //cout << dt.getTime();
 
-/*
+
     for (int year = 2000; year < 2020; year++)
     {
         for (int mon = 1; mon <= 12; mon++)
@@ -136,6 +136,6 @@ int main() {
             }
         }
     }
-*/
+
     return 0;
 }

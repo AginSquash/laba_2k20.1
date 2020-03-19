@@ -373,7 +373,7 @@ std::string DateTime::getTime() {
     days -= year / 4;
     */
 
-    while (days > 365 || ((days > 366) && isLeapers))
+    while (days > 365 && !((days == 366) && isLeapers))
     {
         year++;
         days -= 365;
@@ -381,8 +381,9 @@ std::string DateTime::getTime() {
         {
             days -= 1;
         }
-        if ((year+1) % 4 == 0 && ((year+1) % 100 != 0 || (year+1) % 400 == 0)) {
-        //if ((year) % 4 == 0 && ((year) % 100 != 0 || (year) % 400 == 0)) {
+
+        //if ((year+1) % 4 == 0 && ((year+1) % 100 != 0 || (year+1) % 400 == 0)) {
+        if ((year) % 4 == 0 && ((year) % 100 != 0 || (year) % 400 == 0)) {
             isLeapers = true;
         } else {
             isLeapers = false;
