@@ -349,14 +349,16 @@ unsigned long long DateTime::parseDateTime(int year, int mon, int day, int hour,
         }
         year--;
     }
-    while (mon > 1)
+    //int days_DEBUG = 0;
+    for (int month = 1; month != mon; month++ )
     {
-        days += dayInMonth(mon, isLeapers);
-        mon--;
+        //days_DEBUG += dayInMonth(month, isLeapers);
+        days += dayInMonth(month, isLeapers);
     }
     days += day;
-
+    //days_DEBUG += day;
     dt_days = days;
+
     return days;
 }
 
@@ -365,7 +367,8 @@ std::string DateTime::getTime() {
     long long days = dt_days;
     int year = 0; int mon = 1; int day = 1;
 
-    /*year = days / 365;
+    /*
+    year = days / 365;
     days -= year * 365;
     days -= year / 4;
     */
@@ -379,6 +382,7 @@ std::string DateTime::getTime() {
             days -= 1;
         }
         if ((year+1) % 4 == 0 && ((year+1) % 100 != 0 || (year+1) % 400 == 0)) {
+        //if ((year) % 4 == 0 && ((year) % 100 != 0 || (year) % 400 == 0)) {
             isLeapers = true;
         } else {
             isLeapers = false;
@@ -387,8 +391,9 @@ std::string DateTime::getTime() {
 
     if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
     {
-        //days -= 1;
         isLeapers = true;
+    } else {
+        isLeapers = false;
     }
 
     bool cont = true;
