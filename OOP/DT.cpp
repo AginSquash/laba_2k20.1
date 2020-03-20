@@ -508,11 +508,17 @@ DT_returnType DateTime::ord2ymd(long long n) {
     return  DT_returnType(year, month, n + 1);
 }
 
+int DateTime::hms2ord(int hour, int min, int sec) {
+    int seconds = hour * _SI1H + min * _SI1M + sec;
+    return seconds;
+}
 
+void DateTime::ord2hms(int n) {
+    int hours = n / _SI1H;
+    n %= _SI1H;
+    int min = n / _SI1M;
+    n %= _SI1M;
+    int sec = n;
 
-
-
-
-
-
-
+    cout << hours << ":" << min << ":" << sec << endl;
+}

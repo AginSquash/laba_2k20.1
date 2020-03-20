@@ -78,8 +78,10 @@ int OOP()
 int main() {
     //OOP();
     DateTime dt;
-    long long n =  dt.ymd2ord(2018, 9, 23);
-    cout << dt.ord2ymd(n);
+    //long long n =  dt.ymd2ord(2018, 9, 23);
+    //cout << dt.ord2ymd(n);
+    int n = dt.hms2ord(23, 43, 24);
+    dt.ord2hms(n);
 
     return 0;
 }

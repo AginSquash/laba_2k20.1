@@ -46,6 +46,9 @@ class DateTime
 #define _DI100Y 36524  //                  100
 #define _DI4Y 1461     //                    4
 
+#define _SI1H 3600
+#define _SI1M  60
+
 private:
     short _DAYS_IN_MONTH[13] = { -1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     short _DAYS_BEFORE_MONTH[13] = { -1, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 };
@@ -76,6 +79,8 @@ public:
 
     long long ymd2ord(int year, short month, short day);
     DT_returnType ord2ymd(long long n);
+    int hms2ord(int hour, int min, int sec);
+    void ord2hms(int n);
 
     DateTime(int year, int mon, int day, int hour, int min, int sec, bool isAxiom = false);
     DateTime();
