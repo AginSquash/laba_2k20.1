@@ -474,11 +474,12 @@ long long DateTime::ymd2ord(int year, short month, short day) {
 }
 
 std::string DateTime::ord2ymd(long long n) {
+
     n -= 1;
-    int n400 = n / _DI400Y;
+    int n400 = n / _DI400Y; // count of 400 years in N
     n %= _DI400Y;
     int year = n400 * 400 + 1;
-    int n100 = n / _DI100Y;
+    int n100 = n / _DI100Y; // count of 100 years in N
     n %= _DI100Y;
     int n4 = n/ _DI4Y;
     n %= _DI4Y;
@@ -487,14 +488,16 @@ std::string DateTime::ord2ymd(long long n) {
 
     year += n100 * 100 + n4 * 4 + n1;
 
+    // Default symptoms for XXXX/12/31
     if (n1 == 4 or n100 == 4) {
-        //cout << year - 1 << ":" << 12 << ":" << 31 << endl;
-        //std::string dt_string = std::to_string(year) + "-" + std::to_string(12) + "-" + std::to_string(31);
         return std::to_string(year-1) + "-" + std::to_string(12) + "-" + std::to_string(31);
     }
-        //return year-1, 12, 31;
-    bool leapYear = n1 == 3 and (n4 != 24 or n100 == 3);
-    int month = (n + 50) >> 5;
+    /*
+    * Now the year is correct, and n is the offset from January 1.
+    * Find the month via an estimate that either exact or one too large
+    */
+    bool leapYear = (n1 == 3 and (n4 != 24 or n100 == 3));
+    int month = (n + 50) >> 5; // add 110010 and parsing it via offset
     int preceding = _DAYS_BEFORE_MONTH[month] + (month > 2 and leapYear);
 
     if (preceding > n) {  // estimate is too large
@@ -503,9 +506,6 @@ std::string DateTime::ord2ymd(long long n) {
     }
     n -= preceding;
 
-    //cout << year << ":" << month << ":" << n+1 << endl;
-
-    //std::string dt_string = std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(n+1);
     return std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(n+1);;
 }
 
