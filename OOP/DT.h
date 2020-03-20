@@ -19,8 +19,29 @@ enum DT_addingType
     AT_SEC  = 6
 };
 
+struct DT_returnType
+{
+    int year;
+    int month;
+    int day;
+
+    DT_returnType(int year, int month, int day) {
+        this->year = year;
+        this->month = month;
+        this->day = day;
+    }
+
+    friend std::ostream& operator << (std::ostream &out, const DT_returnType &dtReturnType)
+    {
+        return out << dtReturnType.year << "-" << dtReturnType.month << "-" << dtReturnType.day << endl;
+    }
+};
+
 class DateTime
 {
+/*
+ * Precomputed values for performance
+ */
 #define _DI400Y 146097 //number of days in 400 years
 #define _DI100Y 36524  //                  100
 #define _DI4Y 1461     //                    4
@@ -54,7 +75,7 @@ public:
     std::string getTime();
 
     long long ymd2ord(int year, short month, short day);
-    std::string ord2ymd(long long n);
+    DT_returnType ord2ymd(long long n);
 
     DateTime(int year, int mon, int day, int hour, int min, int sec, bool isAxiom = false);
     DateTime();

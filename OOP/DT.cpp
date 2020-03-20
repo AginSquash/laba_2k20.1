@@ -166,7 +166,6 @@ bool DateTime::checkDate(int year, int mon, int day, bool isAddingDate) {
         default:
             if (isAddingDate && mon == 0)
                 return true;
-            //std::cout << "Month is incorrect" << std::endl;
             return false;
     }
 }
@@ -473,7 +472,7 @@ long long DateTime::ymd2ord(int year, short month, short day) {
             day);
 }
 
-std::string DateTime::ord2ymd(long long n) {
+DT_returnType DateTime::ord2ymd(long long n) {
 
     n -= 1;
     int n400 = n / _DI400Y; // count of 400 years in N
@@ -490,8 +489,9 @@ std::string DateTime::ord2ymd(long long n) {
 
     // Default symptoms for XXXX/12/31
     if (n1 == 4 or n100 == 4) {
-        return std::to_string(year-1) + "-" + std::to_string(12) + "-" + std::to_string(31);
+        return DT_returnType(year - 1, 12, 31);
     }
+
     /*
     * Now the year is correct, and n is the offset from January 1.
     * Find the month via an estimate that either exact or one too large
@@ -505,8 +505,7 @@ std::string DateTime::ord2ymd(long long n) {
         preceding -= _DAYS_IN_MONTH[month] + (month == 2 and leapYear);
     }
     n -= preceding;
-
-    return std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(n+1);;
+    return  DT_returnType(year, month, n + 1);
 }
 
 
