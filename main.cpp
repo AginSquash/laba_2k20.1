@@ -109,7 +109,7 @@ int main() {
     //cout << dt.getTime();
 
 
-    for (int year = 2000; year < 2020; year++)
+    for (int year = 4; year < 6; year++)
     {
         for (int mon = 1; mon <= 12; mon++)
         {

@@ -341,14 +341,21 @@ unsigned long long DateTime::parseDateTime(int year, int mon, int day, int hour,
         isLeapers = true;
     }
     unsigned long long days = 0;
+
+    /*
     while (year != 0)
     {
         days += 365;
         if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
             days += 1;
+
+            cout << "days + 1" << endl;
         }
         year--;
     }
+     */
+    year -= 1;
+    days = year * 365 + year/4 - year/100 + year/400;
     //int days_DEBUG = 0;
     for (int month = 1; month != mon; month++ )
     {
@@ -365,7 +372,7 @@ unsigned long long DateTime::parseDateTime(int year, int mon, int day, int hour,
 std::string DateTime::getTime() {
     bool isLeapers = false;
     long long days = dt_days;
-    int year = 0; int mon = 1; int day = 1;
+    int year = 1; int mon = 1; int day = 1;
 
     /*
     year = days / 365;
