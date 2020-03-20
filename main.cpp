@@ -104,12 +104,14 @@ int dayInM(int month, bool isLeapers)
 
 int main() {
     //OOP();
-    DateTime dt;
-    dt.parseDateTime(2016, 12, 31, 0,0,0);
+    //DateTime dt;
+    //dt.parseDateTime(2016, 12, 31, 0,0,0);
     //cout << dt.getTime();
+    //long long n =  dt.ymd2ord(2018, 9, 23);
+    //cout << n << endl;
+    //dt.ord2ymd(n);
 
-
-    for (int year = 4; year < 6; year++)
+    for (int year = 1; year < 9000; year++)
     {
         for (int mon = 1; mon <= 12; mon++)
         {
@@ -126,13 +128,13 @@ int main() {
                 }
 
                 DateTime dt;
-                unsigned long long days = dt.parseDateTime(year, mon, day, 0,0,0);
+                unsigned long long days = dt.ymd2ord(year, mon, day);
                 std::string dt_string = std::to_string(year) + "-" + std::to_string(mon) + "-" + std::to_string(day);
-                std::string getTime = dt.getTime();
+                std::string getTime = dt.ord2ymd(days);
                 if (dt_string != getTime)
                 {
                     cout << dt_string << " ===== " << getTime << " (" << days << ")"<< endl;
-                } else { cout << dt_string << " OK!"  << " (" << days << ")" << endl; }
+                } //else { cout << dt_string << " OK!"  << " (" << days << ")" << endl; }
             }
         }
     }

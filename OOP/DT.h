@@ -21,7 +21,14 @@ enum DT_addingType
 
 class DateTime
 {
+#define _DI400Y 146097 //number of days in 400 years
+#define _DI100Y 36524  //                  100
+#define _DI4Y 1461     //                    4
+
 private:
+    short _DAYS_IN_MONTH[13] = { -1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    short _DAYS_BEFORE_MONTH[13] = { -1, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 };
+
     int dt_sec  = 0;
     int dt_min  = 0;
     int dt_hour = 0;
@@ -37,9 +44,17 @@ private:
     std::string parseInt(int value, int length = 2);
     int dayInMonth(int month, bool isLeapers);
 
+    bool _is_leap(int year);
+    long long _days_before_year(int year);
+    int _days_in_month(int year, int month);
+    int _days_before_month(int year, int month);
+
 public:
     unsigned long long parseDateTime(int year, int mon, int day, int hour, int min, int sec);
     std::string getTime();
+
+    long long ymd2ord(int year, short month, short day);
+    std::string ord2ymd(long long n);
 
     DateTime(int year, int mon, int day, int hour, int min, int sec, bool isAxiom = false);
     DateTime();

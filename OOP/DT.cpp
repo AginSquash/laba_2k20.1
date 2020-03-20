@@ -447,3 +447,73 @@ std::string DateTime::getTime() {
     while (days < )
      */
 }
+
+bool DateTime::_is_leap(int year) {
+    return (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+}
+
+long long DateTime::_days_before_year(int year) {
+    year -= 1;
+    return year * 365 + year/4 - year/100 + year/400;
+}
+
+int DateTime::_days_in_month(int year, int month) {
+    if (month == 2 && _is_leap(year))
+        return 29;
+    return _DAYS_IN_MONTH[month];
+}
+
+int DateTime::_days_before_month(int year, int month) {
+    return _DAYS_BEFORE_MONTH[month] + (month > 2 and _is_leap(year));
+}
+
+long long DateTime::ymd2ord(int year, short month, short day) {
+    return (_days_before_year(year) +
+            _days_before_month(year, month) +
+            day);
+}
+
+std::string DateTime::ord2ymd(long long n) {
+    n -= 1;
+    int n400 = n / _DI400Y;
+    n %= _DI400Y;
+    int year = n400 * 400 + 1;
+    int n100 = n / _DI100Y;
+    n %= _DI100Y;
+    int n4 = n/ _DI4Y;
+    n %= _DI4Y;
+    int n1 = n / 365;
+    n %= 365;
+
+    year += n100 * 100 + n4 * 4 + n1;
+
+    if (n1 == 4 or n100 == 4) {
+        //cout << year - 1 << ":" << 12 << ":" << 31 << endl;
+        //std::string dt_string = std::to_string(year) + "-" + std::to_string(12) + "-" + std::to_string(31);
+        return std::to_string(year-1) + "-" + std::to_string(12) + "-" + std::to_string(31);
+    }
+        //return year-1, 12, 31;
+    bool leapYear = n1 == 3 and (n4 != 24 or n100 == 3);
+    int month = (n + 50) >> 5;
+    int preceding = _DAYS_BEFORE_MONTH[month] + (month > 2 and leapYear);
+
+    if (preceding > n) {  // estimate is too large
+        month -= 1;
+        preceding -= _DAYS_IN_MONTH[month] + (month == 2 and leapYear);
+    }
+    n -= preceding;
+
+    //cout << year << ":" << month << ":" << n+1 << endl;
+
+    //std::string dt_string = std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(n+1);
+    return std::to_string(year) + "-" + std::to_string(month) + "-" + std::to_string(n+1);;
+}
+
+
+
+
+
+
+
+
+
