@@ -87,8 +87,8 @@ int main() {
     DateTime dt(2020, 03, 18, 12, 45, 32);
 #endif
     //cout << dt.getDateTime();
-    dt.addDateTime(1,2,3,4,5,6);
-
+    //dt.addDateTime(1,2,3,4,5,6);
+    dt.addDateTime(AT_MON, 1);
     cout << dt.getDateTime();
     return 0;
 }

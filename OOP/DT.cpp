@@ -36,7 +36,7 @@ std::string DateTime::parseInt(int value, int length) {
 int DateTime::addDateTime(int type, int count) {
     int year = 0;
     int mon = 0;
-    int day = 0;
+    int day = 1;
     int hour = 0;
     int min = 0;
     int sec = 0;
@@ -66,7 +66,7 @@ int DateTime::addDateTime(int type, int count) {
 }
 
 int DateTime::addDateTime(int year, int mon, int day, int hour, int min, int sec) {
-    if (checkDate(year, mon, day, true)  ) {
+    if (checkDate(year, mon, day, true)) {
         int time2add = hms2ord(hour, min, sec);
         debug_print("time2add", time2add);
         year++;
@@ -74,7 +74,6 @@ int DateTime::addDateTime(int year, int mon, int day, int hour, int min, int sec
         debug_print("date2add", date2add);
         dt_days += date2add + ((dt_seconds + time2add) / _SI24H);
         dt_seconds = (dt_seconds + time2add) % _SI24H;
-
     }
     return 0;
 }
@@ -119,17 +118,6 @@ bool DateTime::checkRange(int value, int min, int max) {
 
 DT_returnType DateTime::getDateTime()
 {
-
-    /*
-    Date date(dt_day, dt_mon, dt_year);
-    std::string weekDay = "";
-    if (!resultOfCompute)
-    {
-        weekDay = " (" + date.getDayResult() +  ") ";
-    }
-    std::string dt_string = parseInt(dt_year, 4) + "-" + parseInt(dt_mon) + "-" + parseInt(dt_day) + weekDay + " " + parseInt(dt_hour) + ":" +
-                            parseInt(dt_min) + ":" + parseInt(dt_sec);
-                            */
     DT_returnType dtReturnType = ord2ymd(dt_days) + ord2hms(dt_seconds);
     dtReturnType.setWeekday();
     return dtReturnType;
