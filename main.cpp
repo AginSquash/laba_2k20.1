@@ -77,11 +77,18 @@ int OOP()
 
 int main() {
     //OOP();
-    DateTime dt;
+    //DateTime dt();
     //long long n =  dt.ymd2ord(2018, 9, 23);
     //cout << dt.ord2ymd(n);
-    int n = dt.hms2ord(23, 43, 24);
-    dt.ord2hms(n);
+    //int n = dt.hms2ord(23, 43, 24);
+    //dt.ord2hms(n);
 
+#ifdef DEBUG
+    DateTime dt(2020, 03, 18, 12, 45, 32);
+#endif
+    //cout << dt.getDateTime();
+    dt.addDateTime(1,2,3,4,5,6);
+
+    cout << dt.getDateTime();
     return 0;
 }

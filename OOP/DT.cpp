@@ -9,13 +9,20 @@
 void debug_print(std::string debug_text)
 {
 #ifdef DEBUG
-    std::cout << debug_text << std::endl;
+    std::cout << "!" << debug_text << std::endl;
+#endif
+}
+
+void debug_print(std::string debug_text, int value)
+{
+#ifdef DEBUG
+    std::cout << "!" << debug_text << " " << value << std::endl;
 #endif
 }
 
 std::string DateTime::parseInt(int value, int length) {
     std::string _value = std::to_string(value);
-    if (axiom)
+    if (resultOfCompute)
     {
         return _value;
     }
@@ -60,82 +67,14 @@ int DateTime::addDateTime(int type, int count) {
 
 int DateTime::addDateTime(int year, int mon, int day, int hour, int min, int sec) {
     if (checkDate(year, mon, day, true)  ) {
-        int _sec = dt_sec + sec;
-        while (_sec > 59) {
-            min++;
-            _sec -= 60;
-        }
-        dt_sec = _sec;
-        debug_print("sec ok");
+        int time2add = hms2ord(hour, min, sec);
+        debug_print("time2add", time2add);
+        year++;
+        long long date2add = ymd2ord(year, mon, day);
+        debug_print("date2add", date2add);
+        dt_days += date2add + ((dt_seconds + time2add) / _SI24H);
+        dt_seconds = (dt_seconds + time2add) % _SI24H;
 
-        int _min = dt_min + min;
-        while (_min > 59) {
-            hour++;
-            _min -= 60;
-        }
-        dt_min = _min;
-        debug_print("min ok");
-
-        int _hour = dt_hour + hour;
-        while (_hour > 23) {
-            day++;
-            _hour -= 24;
-        }
-        dt_hour = _hour;
-        debug_print("hour ok");
-
-        int _mon = dt_mon + mon;
-        while (_mon > 12) {
-            year++;
-            _mon -= 12;
-        }
-        dt_mon = _mon;
-        debug_print ("mon ok");
-
-        dt_year += year;
-
-        int _day = dt_day + day;
-        int dayInMonth;
-        do {
-            switch (dt_mon) {
-                case 1:
-                case 3:
-                case 5:
-                case 7:
-                case 8:
-                case 10:
-                case 12:
-                    dayInMonth = 31;
-                    break;
-                case 2:
-                    if (dt_year % 4 == 0 && (dt_year % 100 != 0 || dt_year % 400 == 0))
-                        dayInMonth = 29;
-                    else
-                        dayInMonth = 28;
-                    break;
-                    // апрель, июнь, сентябрь и ноябрь
-                case 4:
-                case 6:
-                case 9:
-                case 11:
-                    dayInMonth = 30;
-                    break;
-            }
-            if (_day > dayInMonth)
-            {
-                _day -= dayInMonth;
-                dt_mon++;
-            }
-            debug_print("repeating");
-        } while (_day > dayInMonth);
-        debug_print("day ok");
-
-        dt_day = _day;
-        while (dt_mon > 12) {
-            dt_year++;
-            dt_mon -= 12;
-        }
-        debug_print("mon ok");
     }
     return 0;
 }
@@ -178,17 +117,22 @@ bool DateTime::checkRange(int value, int min, int max) {
     return true;
 }
 
-std::string DateTime::getDateTime()
+DT_returnType DateTime::getDateTime()
 {
+
+    /*
     Date date(dt_day, dt_mon, dt_year);
     std::string weekDay = "";
-    if (!axiom)
+    if (!resultOfCompute)
     {
         weekDay = " (" + date.getDayResult() +  ") ";
     }
     std::string dt_string = parseInt(dt_year, 4) + "-" + parseInt(dt_mon) + "-" + parseInt(dt_day) + weekDay + " " + parseInt(dt_hour) + ":" +
                             parseInt(dt_min) + ":" + parseInt(dt_sec);
-    return dt_string;
+                            */
+    DT_returnType dtReturnType = ord2ymd(dt_days) + ord2hms(dt_seconds);
+    dtReturnType.setWeekday();
+    return dtReturnType;
 }
 
 DateTime DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec)
@@ -271,22 +215,18 @@ DateTime DateTime::subtractDateTime(int year, int mon, int day, int hour, int mi
 
 DateTime::DateTime() {}
 
-DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool isAxiom)
+DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool isResultOfCompute)
 {
-    axiom = isAxiom;
-    if (checkDate(year, mon, day) || isAxiom)
+    resultOfCompute = isResultOfCompute;
+    if (checkDate(year, mon, day) || isResultOfCompute)
     {
-        dt_year = year;
-        dt_mon = mon;
-        dt_day = day;
-        if (!isAxiom)
+        dt_days = ymd2ord(year, mon, day);
+        if (!isResultOfCompute)
             std::cout << "Date - OK" << std::endl;
         if ((checkRange(hour, 0, 23)) && checkRange(min, 0, 59) &&  (checkRange(sec, 0, 59)))
         {
-            dt_hour = hour;
-            dt_min = min;
-            dt_sec = sec;
-            if (!isAxiom)
+            dt_seconds = hms2ord(hour, min, sec);
+            if (!isResultOfCompute)
                 std::cout << "Time - OK" << std::endl;
         } else {
             std::cout << "Time is incorrect" << std::endl;
@@ -331,120 +271,6 @@ int DateTime::dayInMonth(int month, bool isLeapers) {
         case 11:
             return 30;
     }
-}
-
-unsigned long long DateTime::parseDateTime(int year, int mon, int day, int hour, int min, int sec) {
-    bool isLeapers = false;
-    if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
-    {
-        isLeapers = true;
-    }
-    unsigned long long days = 0;
-
-    /*
-    while (year != 0)
-    {
-        days += 365;
-        if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
-            days += 1;
-
-            cout << "days + 1" << endl;
-        }
-        year--;
-    }
-     */
-    year -= 1;
-    days = year * 365 + year/4 - year/100 + year/400;
-    //int days_DEBUG = 0;
-    for (int month = 1; month != mon; month++ )
-    {
-        //days_DEBUG += dayInMonth(month, isLeapers);
-        days += dayInMonth(month, isLeapers);
-    }
-    days += day;
-    //days_DEBUG += day;
-    dt_days = days;
-
-    return days;
-}
-
-std::string DateTime::getTime() {
-    bool isLeapers = false;
-    long long days = dt_days;
-    int year = 1; int mon = 1; int day = 1;
-
-    /*
-    year = days / 365;
-    days -= year * 365;
-    days -= year / 4;
-    */
-
-    while (days > 365 && !((days == 366) && isLeapers))
-    {
-        year++;
-        days -= 365;
-        if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
-        {
-            days -= 1;
-        }
-
-        //if ((year+1) % 4 == 0 && ((year+1) % 100 != 0 || (year+1) % 400 == 0)) {
-        if ((year) % 4 == 0 && ((year) % 100 != 0 || (year) % 400 == 0)) {
-            isLeapers = true;
-        } else {
-            isLeapers = false;
-        }
-    }
-
-    if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
-    {
-        isLeapers = true;
-    } else {
-        isLeapers = false;
-    }
-
-    bool cont = true;
-    while (cont) {
-        if (days > dayInMonth(mon, isLeapers))
-        {
-            days -= dayInMonth(mon, isLeapers);
-            mon++;
-        } else { cont = false; break; }
-    }
-
-    day = days;
-
-    //9-11-29 ===== 9-11-28
-    //9-11-30 ===== 9-11-29
-
-    //9-11-0 ===== 9-10-31
-    //9-11-1 ===== 9-10-32
-
-    std::string dt_string = std::to_string(year) + "-" + std::to_string(mon) + "-" + std::to_string(day);
-    return dt_string;
-
-
-    cout << year << endl;
-    cout << mon << endl;
-    cout << day << endl;
-    /*
-    while (days > 365 || ((days > 366) && isLeapers))
-    {
-        year++;
-        days -= 365;
-        if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
-        {
-            days -= 1;
-        }
-        if ((year+1) % 4 == 0 && ((year+1) % 100 != 0 || (year+1) % 400 == 0)) {
-            isLeapers = true;
-        } else {
-            isLeapers = false;
-        }
-    }
-
-    while (days < )
-     */
 }
 
 bool DateTime::_is_leap(int year) {
@@ -513,12 +339,12 @@ int DateTime::hms2ord(int hour, int min, int sec) {
     return seconds;
 }
 
-void DateTime::ord2hms(int n) {
+DT_returnType DateTime::ord2hms(int n) {
     int hours = n / _SI1H;
     n %= _SI1H;
     int min = n / _SI1M;
     n %= _SI1M;
     int sec = n;
 
-    cout << hours << ":" << min << ":" << sec << endl;
+    return DT_returnType(hours, min, sec, true);
 }
