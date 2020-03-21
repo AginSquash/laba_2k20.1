@@ -179,8 +179,7 @@ bool DateTime::checkRange(int value, int min, int max) {
     return true;
 }
 
-std::string DateTime::getDateTime()
-{
+std::string DateTime::getDateTime() {
     Date date(dt_day, dt_mon, dt_year);
     std::string weekDay = "";
     if (!axiom)
@@ -192,8 +191,7 @@ std::string DateTime::getDateTime()
     return dt_string;
 }
 
-DateTime DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec)
-{
+DateTime DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec) {
     int t_year = dt_year; int t_mon = dt_mon; int t_day = dt_day;
     int t_hour = dt_hour; int t_min = dt_min; int t_sec = dt_sec;
 
@@ -298,6 +296,7 @@ DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool 
         std::cout << "Date is incorrect" << std::endl;
         exit(1);
     }
+    
 }
 
 bool DateTime::checkDateTime(int year, int mon, int day, int hour, int min, int sec) {

@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(lldb) Run",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/laba8",
+            "args": [],
+            /*
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/",
+            "environment": [],
+            "miDebuggerPath": "/Users/vladvrublevsky/.vscode-oss/extensions/ms-vscode.cpptools-0.26.0-insiders2/debugAdapters/lldb/bin/lldb-mi",
+            "externalConsole": true,
+            "MIMode": "lldb"
+            */
+        }
+    ]
+}
