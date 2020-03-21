@@ -270,8 +270,7 @@ DateTime DateTime::subtractDateTime(int year, int mon, int day, int hour, int mi
 
 DateTime::DateTime() {}
 
-DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool isAxiom)
-{
+DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool isAxiom) {
     axiom = isAxiom;
     if (checkDate(year, mon, day) || isAxiom)
     {
@@ -296,7 +295,7 @@ DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool 
         std::cout << "Date is incorrect" << std::endl;
         exit(1);
     }
-    
+
 }
 
 bool DateTime::checkDateTime(int year, int mon, int day, int hour, int min, int sec) {
