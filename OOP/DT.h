@@ -110,6 +110,7 @@ private:
     long long dt_days;
     int dt_seconds;
 
+    int abs(int value);
     bool resultOfCompute = false;
     bool checkRange(int value, int min, int max);
     std::string parseInt(int value, int length = 2);

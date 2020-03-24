@@ -123,9 +123,27 @@ DT_returnType DateTime::getDateTime()
     return dtReturnType;
 }
 
+int DateTime::abs(int value){
+    if (value < 0)
+        return value * (-1);
+    return value;
+}
+
 DateTime DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec)
 {
+    if (checkDate(year, mon, day, true)) {
+        int time2sub = hms2ord(hour, min, sec);
+        debug_print("time2sub", time2sub);
+        year++;
+        long long date2sub = ymd2ord(year, mon, day);
+        debug_print("date2sub", date2sub);
+        dt_days -= date2sub;
+        
+        dt_days -= (abs((dt_seconds - time2sub)) / _SI24H);
+        dt_seconds = abs((dt_seconds - time2sub)) % _SI24H;
+    }
     
+    return DateTime(2020, 1, 1, 0, 0, 0);
 }
 
 DateTime::DateTime() {}

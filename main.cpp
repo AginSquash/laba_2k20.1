@@ -89,7 +89,7 @@ int main() {
 #endif
     //cout << dt.getDateTime();
     //dt.addDateTime(1,2,3,4,5,6);
-    dt.addDateTime(AT_MON, 1);
+    dt.subtractDateTime(10, 1, 3, 2, 41, 30);
     cout << dt.getDateTime();
     return 0;
 }
