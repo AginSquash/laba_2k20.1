@@ -16,6 +16,7 @@ int OOP()
     cout << "Введите год, месяц, день, час, минуту и секунду" <<endl;
     cin >> year >> mon >> day >> hour >> min >> sec;
     DateTime dt(year, mon, day, hour, min, sec);
+    
 #endif
     cout << dt.getDateTime() << endl;
 
