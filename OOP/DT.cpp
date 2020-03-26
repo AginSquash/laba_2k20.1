@@ -139,7 +139,6 @@ DateTime::DateTime() {}
 
 DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec)
 {
-    if (checkDate(year, mon, day))
     {
         year++;
         dt_days = ymd2ord(year, mon, day);
@@ -157,6 +156,7 @@ DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec)
         std::cout << "Date is incorrect" << std::endl;
         exit(1);
     }
+
 }
 
 bool DateTime::checkDateTime(int year, int mon, int day, int hour, int min, int sec) {
