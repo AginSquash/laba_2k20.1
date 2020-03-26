@@ -19,6 +19,17 @@ enum DT_addingType
     AT_SEC  = 6
 };
 
+struct _tuple_three
+{
+    int value0 = 0;
+    int value1 = 0;
+    int value2 = 0;
+    
+    _tuple_three (int value0, int value1, int value2) : value0(value0), value1(value1), value2(value2) {
+     // Succefull constructor create
+    }
+};
+
 struct DT_returnType
 {
     int year  = 0;
@@ -30,18 +41,6 @@ struct DT_returnType
     int sec   = 0;
 
     std::string weekday = "";
-
-    DT_returnType(int year, int month, int day) {
-        this->year = year;
-        this->month = month;
-        this->day = day;
-    }
-
-    DT_returnType(int hour, int min, int sec, bool isSeconds) {
-        this->hour = hour;
-        this->min = min;
-        this->sec = sec;
-    }
 
     DT_returnType(int year, int month, int day, int hour, int min, int sec) {
         this->year = year;
@@ -59,26 +58,24 @@ struct DT_returnType
     }
 
     static std::string parseDT(int value, int length = 2) {
+        std::string addingValue = "";
+        if (value < 0)
+        {
+            value *= (-1);
+            addingValue = "-";
+        }
         std::string _value = std::to_string(value);
         while (_value.length() < length)
         {
             _value = "0" + _value;
         }
-        return  _value;
+        return  (addingValue + _value);
     }
 
     friend std::ostream& operator << (std::ostream &out, const DT_returnType &dtReturnType)
     {
         return out << parseDT(dtReturnType.year, 4) << "-" << parseDT(dtReturnType.month) << "-" << parseDT(dtReturnType.day) << dtReturnType.weekday
         << " " << parseDT(dtReturnType.hour) << ":" << parseDT(dtReturnType.min) + ":" + parseDT(dtReturnType.sec) << endl;
-    }
-
-    friend DT_returnType operator + (DT_returnType drt1, DT_returnType drt2)
-    {
-        return DT_returnType(
-                drt1.year + drt2.year, drt1.month + drt2.month,
-                drt1.day + drt2.day,drt1.hour + drt2.hour,
-                drt1.min + drt2.min, drt1.sec + drt2.sec);
     }
 };
 
@@ -100,13 +97,15 @@ private:
     short _DAYS_IN_MONTH[13] = { -1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     short _DAYS_BEFORE_MONTH[13] = { -1, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 };
 
+    // Legacy
     int dt_sec  = 0;
     int dt_min  = 0;
     int dt_hour = 0;
     int dt_day  = 0;
     int dt_mon  = 0;
     int dt_year = 0;
-
+    // end
+    
     long long dt_days;
     int dt_seconds;
 
@@ -124,13 +123,15 @@ private:
 public:
 
     long long ymd2ord(int year, short month, short day);
-    DT_returnType ord2ymd(long long n);
+    _tuple_three ord2ymd(long long n);
 
     int hms2ord(int hour, int min, int sec);
-    DT_returnType ord2hms(int n);
+    _tuple_three ord2hms(int n);
 
     DateTime(int year, int mon, int day, int hour, int min, int sec, bool isResultOfCompute = false);
+    DateTime(long long days, int seconds);
     DateTime();
+    
     DT_returnType getDateTime();
     bool checkDate(int year, int mon, int day, bool isAddingDate = false);
     bool checkDateTime(int year, int mon, int day, int hour, int min, int sec);

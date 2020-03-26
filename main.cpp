@@ -85,11 +85,11 @@ int main() {
     //dt.ord2hms(n);
 
 #ifdef DEBUG
-    DateTime dt(2020, 03, 18, 12, 45, 32);
+    DateTime dt(2020, 03, 24, 0, 0, 0);
 #endif
     //cout << dt.getDateTime();
     //dt.addDateTime(1,2,3,4,5,6);
-    dt.subtractDateTime(10, 1, 3, 2, 41, 30);
+    dt.subtractDateTime(2021, 9, 22, 0, 0, 0);
     cout << dt.getDateTime();
     return 0;
 }

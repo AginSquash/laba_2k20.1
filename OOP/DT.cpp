@@ -118,7 +118,10 @@ bool DateTime::checkRange(int value, int min, int max) {
 
 DT_returnType DateTime::getDateTime()
 {
-    DT_returnType dtReturnType = ord2ymd(dt_days) + ord2hms(dt_seconds);
+    _tuple_three t1 = ord2ymd(dt_days);
+    _tuple_three t2 = ord2hms(dt_seconds);
+    
+    DT_returnType dtReturnType(t1.value0, t1.value1, t1.value2, t2.value0, t2.value1, t2.value2);
     dtReturnType.setWeekday();
     return dtReturnType;
 }
@@ -134,15 +137,14 @@ DateTime DateTime::subtractDateTime(int year, int mon, int day, int hour, int mi
     if (checkDate(year, mon, day, true)) {
         int time2sub = hms2ord(hour, min, sec);
         debug_print("time2sub", time2sub);
-        year++;
         long long date2sub = ymd2ord(year, mon, day);
         debug_print("date2sub", date2sub);
-        dt_days -= date2sub;
         
+        dt_days -= date2sub;
         dt_days -= (abs((dt_seconds - time2sub)) / _SI24H);
         dt_seconds = abs((dt_seconds - time2sub)) % _SI24H;
     }
-    
+    debug_print("dt_days", dt_days);
     return DateTime(2020, 1, 1, 0, 0, 0);
 }
 
@@ -206,8 +208,14 @@ long long DateTime::ymd2ord(int year, short month, short day) {
             day);
 }
 
-DT_returnType DateTime::ord2ymd(long long n) {
+_tuple_three DateTime::ord2ymd(long long n) {
 
+    short factor = 1;
+    if (n < 0)
+    {
+        n *= (-1);
+        factor = (-1);
+    }
     n -= 1;
     int n400 = n / _DI400Y; // count of 400 years in N
     n %= _DI400Y;
@@ -223,7 +231,7 @@ DT_returnType DateTime::ord2ymd(long long n) {
 
     // Default symptoms for XXXX/12/31
     if (n1 == 4 or n100 == 4) {
-        return DT_returnType(year - 1, 12, 31);
+        return _tuple_three(year - 1, 12, 31);
     }
 
     /*
@@ -239,7 +247,7 @@ DT_returnType DateTime::ord2ymd(long long n) {
         preceding -= _DAYS_IN_MONTH[month] + (month == 2 and leapYear);
     }
     n -= preceding;
-    return  DT_returnType(year, month, n + 1);
+    return  _tuple_three( (factor) * year, month, n + 1);
 }
 
 int DateTime::hms2ord(int hour, int min, int sec) {
@@ -247,12 +255,12 @@ int DateTime::hms2ord(int hour, int min, int sec) {
     return seconds;
 }
 
-DT_returnType DateTime::ord2hms(int n) {
+_tuple_three DateTime::ord2hms(int n) {
     int hours = n / _SI1H;
     n %= _SI1H;
     int min = n / _SI1M;
     n %= _SI1M;
     int sec = n;
 
-    return DT_returnType(hours, min, sec, true);
+    return _tuple_three(hours, min, sec);
 }
