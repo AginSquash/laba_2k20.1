@@ -89,7 +89,7 @@ int main() {
 #endif
     //cout << dt.getDateTime();
     //dt.addDateTime(1,2,3,4,5,6);
-    dt.subtractDateTime(2021, 9, 22, 0, 0, 0);
+    dt.subtractDateTime(2019, 9, 22, 0, 0, 0);
     cout << dt.getDateTime();
     return 0;
 }
