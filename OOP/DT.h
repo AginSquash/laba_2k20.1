@@ -110,9 +110,7 @@ private:
     int dt_seconds;
 
     int abs(int value);
-    bool resultOfCompute = false;
     bool checkRange(int value, int min, int max);
-    std::string parseInt(int value, int length = 2);
     int dayInMonth(int month, bool isLeapers);
 
     bool _is_leap(int year);
@@ -128,7 +126,7 @@ public:
     int hms2ord(int hour, int min, int sec);
     _tuple_three ord2hms(int n);
 
-    DateTime(int year, int mon, int day, int hour, int min, int sec, bool isResultOfCompute = false);
+    DateTime(int year, int mon, int day, int hour, int min, int sec);
     DateTime(long long days, int seconds);
     DateTime();
     

@@ -20,19 +20,6 @@ void debug_print(std::string debug_text, int value)
 #endif
 }
 
-std::string DateTime::parseInt(int value, int length) {
-    std::string _value = std::to_string(value);
-    if (resultOfCompute)
-    {
-        return _value;
-    }
-    while (_value.length() < length)
-    {
-        _value = "0" + _value;
-    }
-    return  _value;
-}
-
 int DateTime::addDateTime(int type, int count) {
     int year = 0;
     int mon = 0;
@@ -150,19 +137,17 @@ DateTime DateTime::subtractDateTime(int year, int mon, int day, int hour, int mi
 
 DateTime::DateTime() {}
 
-DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec, bool isResultOfCompute)
+DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec)
 {
-    resultOfCompute = isResultOfCompute;
-    if (checkDate(year, mon, day) || isResultOfCompute)
+
+    if (checkDate(year, mon, day))
     {
         dt_days = ymd2ord(year, mon, day);
-        if (!isResultOfCompute)
-            std::cout << "Date - OK" << std::endl;
+        std::cout << "Date - OK" << std::endl;
         if ((checkRange(hour, 0, 23)) && checkRange(min, 0, 59) &&  (checkRange(sec, 0, 59)))
         {
             dt_seconds = hms2ord(hour, min, sec);
-            if (!isResultOfCompute)
-                std::cout << "Time - OK" << std::endl;
+            std::cout << "Time - OK" << std::endl;
         } else {
             std::cout << "Time is incorrect" << std::endl;
             exit(1);
