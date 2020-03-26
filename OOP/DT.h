@@ -114,9 +114,9 @@ private:
     int dayInMonth(int month, bool isLeapers);
 
     bool _is_leap(int year);
-    long long _days_before_year(int year);
-    int _days_in_month(int year, int month);
-    int _days_before_month(int year, int month);
+    long long days_before_year(int year);
+    int days_in_month(int year, int month);
+    int days_before_month(int year, int month);
 
 public:
 
@@ -135,7 +135,7 @@ public:
     bool checkDateTime(int year, int mon, int day, int hour, int min, int sec);
     int addDateTime(int year, int mon, int day, int hour, int min, int sec);
     int addDateTime(int type, int count);
-    DateTime subtractDateTime(int year, int mon, int day, int hour, int min, int sec);
+    int subtractDateTime(int year, int mon, int day, int hour, int min, int sec);
 };
 
 #endif LABA8_DT_H

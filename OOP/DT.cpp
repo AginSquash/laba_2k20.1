@@ -61,8 +61,9 @@ int DateTime::addDateTime(int year, int mon, int day, int hour, int min, int sec
         debug_print("date2add", date2add);
         dt_days += date2add + ((dt_seconds + time2add) / _SI24H);
         dt_seconds = (dt_seconds + time2add) % _SI24H;
+        return 0;
     }
-    return 0;
+    return -1;
 }
 
 bool DateTime::checkDate(int year, int mon, int day, bool isAddingDate) {
@@ -119,29 +120,28 @@ int DateTime::abs(int value){
     return value;
 }
 
-DateTime DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec)
+int DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec)
 {
     if (checkDate(year, mon, day, true)) {
         int time2sub = hms2ord(hour, min, sec);
         debug_print("time2sub", time2sub);
         long long date2sub = ymd2ord(year, mon, day);
         debug_print("date2sub", date2sub);
-        
-        dt_days -= date2sub;
-        dt_days -= (abs((dt_seconds - time2sub)) / _SI24H);
+
+        dt_days -= date2sub + (abs((dt_seconds - time2sub)) / _SI24H);
         dt_seconds = abs((dt_seconds - time2sub)) % _SI24H;
+        return 0;
     }
-    debug_print("dt_days", dt_days);
-    return DateTime(2020, 1, 1, 0, 0, 0);
+    return -1;
 }
 
 DateTime::DateTime() {}
 
 DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec)
 {
-
     if (checkDate(year, mon, day))
     {
+        year++;
         dt_days = ymd2ord(year, mon, day);
         std::cout << "Date - OK" << std::endl;
         if ((checkRange(hour, 0, 23)) && checkRange(min, 0, 59) &&  (checkRange(sec, 0, 59)))
@@ -172,24 +172,24 @@ bool DateTime::_is_leap(int year) {
     return (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
 }
 
-long long DateTime::_days_before_year(int year) {
+long long DateTime::days_before_year(int year) {
     year -= 1;
     return year * 365 + year/4 - year/100 + year/400;
 }
 
-int DateTime::_days_in_month(int year, int month) {
+int DateTime::days_in_month(int year, int month) {
     if (month == 2 && _is_leap(year))
         return 29;
     return _DAYS_IN_MONTH[month];
 }
 
-int DateTime::_days_before_month(int year, int month) {
+int DateTime::days_before_month(int year, int month) {
     return _DAYS_BEFORE_MONTH[month] + (month > 2 and _is_leap(year));
 }
 
 long long DateTime::ymd2ord(int year, short month, short day) {
-    return (_days_before_year(year) +
-            _days_before_month(year, month) +
+    return (days_before_year(year) +
+            days_before_month(year, month) +
             day);
 }
 
