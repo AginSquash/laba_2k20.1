@@ -10,7 +10,7 @@ int OOP()
 {
     int year; int mon; int day; int hour; int min; int sec;
 #ifdef DEBUG
-    DateTime dt(2020, 03, 18, 0, 00, 00);
+    DateTime dt(2020, 02, 26, 0, 00, 00);
 #endif
 #ifndef DEBUG
     cout << "Введите год, месяц, день, час, минуту и секунду" <<endl;
@@ -34,8 +34,8 @@ int OOP()
             case 2: {
                 cout << "Введите год, месяц, день, час, минуту и секунду" << endl;
                 cin >> year >> mon >> day >> hour >> min >> sec;
-                DateTime dt_sub = dt.subtractDateTime(year, mon, day, hour, min, sec);
-                cout << dt_sub.getDateTime() << endl;
+                dt.subtractDateTime(year, mon, day, hour, min, sec);
+                cout << dt.getDateTime() << endl;
                 break;
             }
             case 3:
@@ -61,7 +61,6 @@ int OOP()
             case 5:
                 exit(0);
                 break;
-
         }
     }
 }
@@ -70,5 +69,18 @@ int OOP()
 
 int main() {
     OOP();
+    //DateTime dt();
+    //long long n =  dt.ymd2ord(2018, 9, 23);
+    //cout << dt.ord2ymd(n);
+    //int n = dt.hms2ord(23, 43, 24);
+    //dt.ord2hms(n);
+
+#ifdef DEBUG
+    DateTime dt(2020, 03, 24, 0, 0, 0);
+#endif
+    //cout << dt.getDateTime();
+    //dt.addDateTime(1,2,3,4,5,6);
+    dt.subtractDateTime(2019, 9, 22, 0, 0, 0);
+    cout << dt.getDateTime();
     return 0;
 }

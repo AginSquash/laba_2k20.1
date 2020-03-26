@@ -45,14 +45,14 @@ std::string Date::getDayResult()
         case 6:
             dayString = "Saturday";
         default:
-            cout << "Error in DATE.cpp" << endl;
+            //cout << "Error in DATE.cpp" << endl;
             break;
     }
     return dayString;
 }
 void Date::getWeekend()
 {
-    if (dayResult == 6 || dayResult == 7)
+    if (dayResult == 5 || dayResult == 6)
     {
         cout << "Weekend\n";
     }
