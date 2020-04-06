@@ -250,3 +250,14 @@ _tuple_three DateTime::ord2hms(int n) {
 
     return _tuple_three(hours, min, sec);
 }
+
+DateTime& DateTime::operator=(const DateTime &dt) {
+        debug_print("operator= loaded");
+        dt_days = dt.dt_days;
+        dt_seconds = dt.dt_seconds;
+        return *this;
+}
+
+std::ostream& operator<<(std::ostream &out, DateTime &dt) {
+return out << dt.getDateTime() << endl;
+}

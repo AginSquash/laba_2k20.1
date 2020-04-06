@@ -105,9 +105,9 @@ private:
     int dt_mon  = 0;
     int dt_year = 0;
     // end
-    
-    long long dt_days;
-    int dt_seconds;
+
+    long long dt_days = 0;
+    int dt_seconds = 0;
 
     int abs(int value);
     bool checkRange(int value, int min, int max);
@@ -119,7 +119,6 @@ private:
     int days_before_month(int year, int month);
 
 public:
-
     long long ymd2ord(int year, short month, short day);
     _tuple_three ord2ymd(long long n);
 
@@ -129,6 +128,10 @@ public:
     DateTime(int year, int mon, int day, int hour, int min, int sec);
     DateTime(long long days, int seconds);
     DateTime();
+
+    friend std::ostream& operator<<(std::ostream &out, DateTime &dt);
+
+    DateTime& operator= (const DateTime &dt);
     
     DT_returnType getDateTime();
     bool checkDate(int year, int mon, int day, bool isAddingDate = false);

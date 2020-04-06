@@ -68,7 +68,7 @@ int OOP()
 // Collab by Karina Romanova
 
 int main() {
-    OOP();
+    //OOP();
     //DateTime dt();
     //long long n =  dt.ymd2ord(2018, 9, 23);
     //cout << dt.ord2ymd(n);
@@ -77,10 +77,13 @@ int main() {
 
 #ifdef DEBUG
     DateTime dt(2020, 03, 24, 0, 0, 0);
+    DateTime dt1(3, 03, 24, 5, 1, 0);
+    dt = dt1;
 #endif
+
     //cout << dt.getDateTime();
     //dt.addDateTime(1,2,3,4,5,6);
-    dt.subtractDateTime(2019, 9, 22, 0, 0, 0);
-    cout << dt.getDateTime();
+    //dt.subtractDateTime(2019, 9, 22, 0, 0, 0);
+    cout << dt;
     return 0;
 }
