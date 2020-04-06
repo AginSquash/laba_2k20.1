@@ -9,7 +9,7 @@
 #include <string> //fix for windows
 #include "../collab/Date.h"
 
-enum DT_addingType
+enum DT_timeType
 {
     AT_YEAR = 1,
     AT_MON  = 2,
@@ -130,9 +130,9 @@ public:
     DateTime();
 
     friend std::ostream& operator<<(std::ostream &out, DateTime &dt);
-
     DateTime& operator= (const DateTime &dt);
-    
+    int operator[] (const DT_timeType dtType);
+
     DT_returnType getDateTime();
     bool checkDate(int year, int mon, int day, bool isAddingDate = false);
     bool checkDateTime(int year, int mon, int day, int hour, int min, int sec);

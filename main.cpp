@@ -84,6 +84,6 @@ int main() {
     //cout << dt.getDateTime();
     //dt.addDateTime(1,2,3,4,5,6);
     //dt.subtractDateTime(2019, 9, 22, 0, 0, 0);
-    cout << dt;
+    cout << dt[AT_DAY];
     return 0;
 }

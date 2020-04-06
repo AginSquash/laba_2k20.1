@@ -252,7 +252,6 @@ _tuple_three DateTime::ord2hms(int n) {
 }
 
 DateTime& DateTime::operator=(const DateTime &dt) {
-        debug_print("operator= loaded");
         dt_days = dt.dt_days;
         dt_seconds = dt.dt_seconds;
         return *this;
@@ -260,4 +259,28 @@ DateTime& DateTime::operator=(const DateTime &dt) {
 
 std::ostream& operator<<(std::ostream &out, DateTime &dt) {
 return out << dt.getDateTime() << endl;
+}
+
+int DateTime::operator[](const DT_timeType dtType) {
+    DT_returnType dtTimeType = getDateTime();
+    switch (dtType) {
+        case AT_YEAR:
+            return dtTimeType.year;
+            break;
+        case AT_MON:
+            return dtTimeType.month;
+            break;
+        case AT_DAY:
+            return dtTimeType.day;
+            break;
+        case AT_HOUR:
+            return dtTimeType.hour;
+            break;
+        case AT_MIN:
+            return dtTimeType.min;
+            break;
+        case AT_SEC:
+            return dtTimeType.sec;
+            break;
+    }
 }
