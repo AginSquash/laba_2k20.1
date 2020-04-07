@@ -361,3 +361,7 @@ bool operator<= (const DateTime &dt1, const DateTime &dt2) {
     }
     return dt1<dt2;
 }
+
+DateTime::operator int() {
+    return dt_days;
+}

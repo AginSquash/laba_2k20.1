@@ -88,7 +88,7 @@ int main() {
     //cout << dt.getDateTime();
     //dt.addDateTime(1,2,3,4,5,6);
     //dt.subtractDateTime(2019, 9, 22, 0, 0, 0);
-    cout << dt3;
+    cout << int(dt3) << endl;
     cout << dt1;
     return 0;
 }

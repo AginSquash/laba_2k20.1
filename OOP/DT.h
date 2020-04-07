@@ -144,6 +144,8 @@ public:
     friend bool operator< (const DateTime &dt1, const DateTime &dt2);
     friend bool operator<= (const DateTime &dt1, const DateTime &dt2);
 
+    operator int();
+
     DT_returnType getDateTime();
     bool checkDate(int year, int mon, int day, bool isAddingDate = false);
     bool checkDateTime(int year, int mon, int day, int hour, int min, int sec);
