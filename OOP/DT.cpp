@@ -299,3 +299,14 @@ DateTime DateTime::operator+(DateTime dt) {
     newDt += dt;
     return newDt;
 }
+
+bool operator== (const DateTime &dt1, const DateTime &dt2)
+{
+    return (dt1.dt_days == dt2.dt_days &&
+            dt1.dt_seconds== dt2.dt_seconds);
+}
+
+bool operator!= (const DateTime &dt1, const DateTime &dt2)
+{
+    return !(dt1 == dt2);
+}
