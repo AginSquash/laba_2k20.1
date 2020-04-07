@@ -75,7 +75,7 @@ struct DT_returnType
     friend std::ostream& operator << (std::ostream &out, const DT_returnType &dtReturnType)
     {
         return out << parseDT(dtReturnType.year, 4) << "-" << parseDT(dtReturnType.month) << "-" << parseDT(dtReturnType.day) << dtReturnType.weekday
-        << " " << parseDT(dtReturnType.hour) << ":" << parseDT(dtReturnType.min) + ":" + parseDT(dtReturnType.sec) << endl;
+        << " " << parseDT(dtReturnType.hour) << ":" << parseDT(dtReturnType.min) + ":" + parseDT(dtReturnType.sec);
     }
 };
 

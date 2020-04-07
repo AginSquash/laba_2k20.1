@@ -4,7 +4,7 @@
 
 #include "DT.h"
 
-#define DEBUG
+//#define DEBUG
 
 void debug_print(std::string debug_text)
 {
@@ -143,11 +143,11 @@ DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec)
     {
         year++;
         dt_days = ymd2ord(year, mon, day);
-        std::cout << "Date - OK" << std::endl;
+        //std::cout << "Date - OK" << std::endl;
         if ((checkRange(hour, 0, 23)) && checkRange(min, 0, 59) &&  (checkRange(sec, 0, 59)))
         {
             dt_seconds = hms2ord(hour, min, sec);
-            std::cout << "Time - OK" << std::endl;
+            //std::cout << "Time - OK" << std::endl;
         } else {
             std::cout << "Time is incorrect" << std::endl;
             exit(1);
@@ -258,7 +258,7 @@ DateTime& DateTime::operator=(const DateTime &dt) {
 }
 
 std::ostream& operator<<(std::ostream &out, DateTime &dt) {
-    return out << dt.getDateTime() << endl;
+    return out << dt.getDateTime();
 }
 
 int DateTime::operator[](const DT_timeType dtType) {
