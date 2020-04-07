@@ -310,3 +310,41 @@ bool operator!= (const DateTime &dt1, const DateTime &dt2)
 {
     return !(dt1 == dt2);
 }
+
+bool operator> (const DateTime &dt1, const DateTime &dt2) {
+    if (dt1.dt_days > dt2.dt_days)
+        return true;
+    if (dt1.dt_days < dt2.dt_days)
+        return false;
+    if (dt1.dt_seconds > dt2.dt_seconds) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool operator>= (const DateTime &dt1, const DateTime &dt2) {
+    if (dt1 == dt2) {
+        return true;
+    }
+    return dt1>dt2;
+}
+
+bool operator< (const DateTime &dt1, const DateTime &dt2) {
+    if (dt1.dt_days < dt2.dt_days)
+        return true;
+    if (dt1.dt_days > dt2.dt_days)
+        return false;
+    if (dt1.dt_seconds < dt2.dt_seconds) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool operator<= (const DateTime &dt1, const DateTime &dt2) {
+    if (dt1 == dt2) {
+        return true;
+    }
+    return dt1<dt2;
+}
