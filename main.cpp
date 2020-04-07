@@ -65,7 +65,7 @@ int OOP()
     }
 }
 
-// Collab by Karina Romanova
+// Collab with Karina Romanova
 
 int main() {
     //OOP();
