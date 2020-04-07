@@ -135,7 +135,9 @@ int DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, in
     return -1;
 }
 
-DateTime::DateTime() {}
+DateTime::DateTime() {
+    //DateTime(0, 0);
+}
 
 DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec)
 {
@@ -283,4 +285,17 @@ int DateTime::operator[](const DT_timeType dtType) {
             return dtTimeType.sec;
             break;
     }
+}
+
+DateTime& DateTime::operator+=(DateTime &dt) {
+    DT_returnType dtReturn = dt.getDateTime();
+    addDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
+
+    return *this;
+}
+
+DateTime DateTime::operator+(DateTime dt) {
+    DateTime newDt = *this;
+    newDt += dt;
+    return newDt;
 }

@@ -132,6 +132,8 @@ public:
     friend std::ostream& operator<<(std::ostream &out, DateTime &dt);
     DateTime& operator= (const DateTime &dt);
     int operator[] (const DT_timeType dtType);
+    DateTime& operator+= (DateTime &dt);
+    DateTime operator+ (DateTime dt);
 
     DT_returnType getDateTime();
     bool checkDate(int year, int mon, int day, bool isAddingDate = false);

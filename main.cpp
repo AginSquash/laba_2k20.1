@@ -75,16 +75,19 @@ int main() {
     //int n = dt.hms2ord(23, 43, 24);
     //dt.ord2hms(n);
 
-    
+
 #ifdef DEBUG
     DateTime dt(2020, 03, 24, 0, 0, 0);
     DateTime dt1(3, 03, 24, 5, 1, 0);
-    dt = dt1;
+
+    DateTime dt3 = dt+dt1;
+
 #endif
 
     //cout << dt.getDateTime();
     //dt.addDateTime(1,2,3,4,5,6);
     //dt.subtractDateTime(2019, 9, 22, 0, 0, 0);
-    cout << dt[AT_DAY];
+    cout << dt3;
+    cout << dt1;
     return 0;
 }
