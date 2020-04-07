@@ -135,9 +135,7 @@ int DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, in
     return -1;
 }
 
-DateTime::DateTime() {
-    //DateTime(0, 0);
-}
+DateTime::DateTime() { }
 
 DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec)
 {
