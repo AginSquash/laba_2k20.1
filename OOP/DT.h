@@ -134,14 +134,15 @@ public:
     int operator[] (const DT_timeType dtType);
     DateTime& operator+= (DateTime &dt);
     DateTime operator+ (DateTime dt);
+    DateTime& operator-= (DateTime &dt);
+    DateTime operator- (DateTime dt);
+
     friend bool operator== (const DateTime &dt1, const DateTime &dt2);
     friend bool operator!= (const DateTime &dt1, const DateTime &dt2);
-
     friend bool operator> (const DateTime &dt1, const DateTime &dt2);
-    friend bool operator<= (const DateTime &dt1, const DateTime &dt2);
-
-    friend bool operator< (const DateTime &dt1, const DateTime &dt2);
     friend bool operator>= (const DateTime &dt1, const DateTime &dt2);
+    friend bool operator< (const DateTime &dt1, const DateTime &dt2);
+    friend bool operator<= (const DateTime &dt1, const DateTime &dt2);
 
     DT_returnType getDateTime();
     bool checkDate(int year, int mon, int day, bool isAddingDate = false);

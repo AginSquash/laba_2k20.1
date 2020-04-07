@@ -260,7 +260,7 @@ DateTime& DateTime::operator=(const DateTime &dt) {
 }
 
 std::ostream& operator<<(std::ostream &out, DateTime &dt) {
-return out << dt.getDateTime() << endl;
+    return out << dt.getDateTime() << endl;
 }
 
 int DateTime::operator[](const DT_timeType dtType) {
@@ -287,16 +287,29 @@ int DateTime::operator[](const DT_timeType dtType) {
     }
 }
 
-DateTime& DateTime::operator+=(DateTime &dt) {
+DateTime& DateTime::operator+= (DateTime &dt) {
     DT_returnType dtReturn = dt.getDateTime();
     addDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
 
     return *this;
 }
 
-DateTime DateTime::operator+(DateTime dt) {
+DateTime DateTime::operator+ (DateTime dt) {
     DateTime newDt = *this;
     newDt += dt;
+    return newDt;
+}
+
+DateTime& DateTime::operator-= (DateTime &dt) {
+    DT_returnType dtReturn = dt.getDateTime();
+    subtractDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
+
+    return *this;
+}
+
+DateTime DateTime::operator- (DateTime dt) {
+    DateTime newDt = *this;
+    newDt -= dt;
     return newDt;
 }
 

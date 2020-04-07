@@ -79,18 +79,15 @@ int main() {
 #ifdef DEBUG
     DateTime dt(2020, 03, 24, 0, 0, 0);
     DateTime dt0(2020, 03, 24, 0, 0, 0);
-    DateTime dt1(3, 03, 24, 5, 1, 0);
+    DateTime dt1(  10, 04, 5, 5, 1, 0);
 
-    DateTime dt3 = dt+dt1;
+    DateTime dt3 = dt-dt1;
 
 #endif
 
     //cout << dt.getDateTime();
     //dt.addDateTime(1,2,3,4,5,6);
     //dt.subtractDateTime(2019, 9, 22, 0, 0, 0);
-    cout << (dt0 < dt) << endl;
-    cout << (dt <= dt1) << endl;
-    cout << (dt >= dt1) << endl;
     cout << dt3;
     cout << dt1;
     return 0;
