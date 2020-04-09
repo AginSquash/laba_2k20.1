@@ -123,8 +123,9 @@ TimeTuple DateTime::getDateTime()
 {
     std::tuple<int, int, int> ymd = ord2ymd(dt_days);
     std::tuple<int, int, int> hms = ord2hms(dt_seconds);
-
-    return std::make_tuple(get<0>(ymd), get<1>(ymd), get<2>(ymd),  get<0>(hms), get<1>(hms), get<2>(hms));
+    
+    TimeTuple time = std::make_tuple(get<0>(ymd), get<1>(ymd), get<2>(ymd),  get<0>(hms), get<1>(hms), get<2>(hms));
+    return time;
 }
 
 std::string DateTime::dateTimeToString()
