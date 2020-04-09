@@ -17,7 +17,7 @@ int OOP()
     cin >> year >> mon >> day >> hour >> min >> sec;
     DateTime dt(year, mon, day, hour, min, sec);
 #endif
-    cout << dt.getDateTime() << endl;
+    cout << dt.dateTimeToString() << endl;
     bool cont = true;
     while (cont)
     {
@@ -29,13 +29,13 @@ int OOP()
                 cout << "Введите год, месяц, день, час, минуту и секунду" <<endl;
                 cin >> year >> mon >> day >> hour >> min >> sec;
                 dt.addDateTime(year, mon, day, hour, min, sec);
-                cout << dt.getDateTime() << endl;
+                cout << dt.dateTimeToString() << endl;
                 break;
             case 2: {
                 cout << "Введите год, месяц, день, час, минуту и секунду" << endl;
                 cin >> year >> mon >> day >> hour >> min >> sec;
                 dt.subtractDateTime(year, mon, day, hour, min, sec);
-                cout << dt.getDateTime() << endl;
+                cout << dt.dateTimeToString() << endl;
                 break;
             }
             case 3:
@@ -55,7 +55,7 @@ int OOP()
                 int addingValue;
                 cin >> addingValue;
                 dt.addDateTime(type, addingValue);
-                cout <<  dt.getDateTime() << endl;
+                cout <<  dt.dateTimeToString() << endl;
                 break;
 
             case 5:
@@ -67,6 +67,7 @@ int OOP()
 
 // Collab with Karina Romanova
 
+
 int main() {
     //OOP();
     //DateTime dt();
@@ -75,19 +76,18 @@ int main() {
     //int n = dt.hms2ord(23, 43, 24);
     //dt.ord2hms(n);
 
-
 #ifdef DEBUG
     DateTime dt(2020, 03, 24, 0, 0, 0);
     DateTime dt1(  10, 04, 5, 5, 1, 0);
     DateTime dt2(2020, 03, 24, 0, 0, 0);
 
     DateTime dt3 = dt - dt1;
-    cout << int(dt3) << endl;
+    cout <<dt1 << endl;
 
     dt += dt1;
     cout << dt << endl;
 
-    if (dt >= dt2)
+    if (dt1 >= dt2)
     {
         cout << "dt >= dt2 - true" << endl;
     }
