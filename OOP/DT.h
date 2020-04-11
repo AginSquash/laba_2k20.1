@@ -19,14 +19,22 @@ enum DT_timeType
     AT_SEC  = 6
 };
 
-struct _tuple_three
+
+struct DT_YearMonthDay
 {
-    int value0 = 0;
-    int value1 = 0;
-    int value2 = 0;
-    
-    _tuple_three (int value0, int value1, int value2) : value0(value0), value1(value1), value2(value2) {
-     // Succefull constructor create
+    int year, month, day;
+
+    DT_YearMonthDay (int year, int month, int day) : year(year), month(month), day(day) {
+        // Succefull constructor create
+    }
+};
+
+struct DT_HourMinSec
+{
+    int hour, min, sec;
+
+    DT_HourMinSec (int hour, int min, int sec) : hour(hour), min(min), sec(sec) {
+        // Succefull constructor create
     }
 };
 
@@ -120,10 +128,10 @@ private:
 
 public:
     long long ymd2ord(int year, short month, short day);
-    _tuple_three ord2ymd(long long n);
+    DT_YearMonthDay ord2ymd(long long n);
 
     int hms2ord(int hour, int min, int sec);
-    _tuple_three ord2hms(int n);
+    DT_HourMinSec ord2hms(int n);
 
     DateTime(int year, int mon, int day, int hour, int min, int sec);
     DateTime(long long days, int seconds);

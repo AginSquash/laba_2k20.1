@@ -103,41 +103,13 @@ bool DateTime::checkRange(int value, int min, int max) {
         return false;
     return true;
 }
-/*
-<<<<<<< HEAD
-std::string DateTime::parseDT(int value, int length) {
-    std::string addingValue = "";
-    if (value < 0)
-    {
-        value *= (-1);
-        addingValue = "-";
-    }
-    std::string _value = std::to_string(value);
-    while (_value.length() < length)
-    {
-        _value = "0" + _value;
-    }
-    return  (addingValue + _value);
-}
 
-TimeTuple DateTime::getDateTime()
-{
-    std::tuple<int, int, int> ymd = ord2ymd(dt_days);
-    std::tuple<int, int, int> hms = ord2hms(dt_seconds);
-    
-    TimeTuple time = std::make_tuple(get<0>(ymd), get<1>(ymd), get<2>(ymd),  get<0>(hms), get<1>(hms), get<2>(hms));
-    return time;
-}
-
-std::string DateTime::dateTimeToString()
-=======
-        */
 DT_returnType DateTime::getDateTime()
 {
-    _tuple_three t1 = ord2ymd(dt_days);
-    _tuple_three t2 = ord2hms(dt_seconds);
+    DT_YearMonthDay ymd = ord2ymd(dt_days);
+    DT_HourMinSec hms = ord2hms(dt_seconds);
     
-    DT_returnType dtReturnType(t1.value0, t1.value1, t1.value2, t2.value0, t2.value1, t2.value2);
+    DT_returnType dtReturnType(ymd.year, ymd.month, ymd.day, hms.hour, hms.min, hms.sec);
     dtReturnType.setWeekday();
     return dtReturnType;
 }
@@ -171,11 +143,9 @@ DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec)
     {
         year++;
         dt_days = ymd2ord(year, mon, day);
-        //std::cout << "Date - OK" << std::endl;
         if ((checkRange(hour, 0, 23)) && checkRange(min, 0, 59) &&  (checkRange(sec, 0, 59)))
         {
             dt_seconds = hms2ord(hour, min, sec);
-            //std::cout << "Time - OK" << std::endl;
         } else {
             std::cout << "Time is incorrect" << std::endl;
             exit(1);
@@ -222,7 +192,7 @@ long long DateTime::ymd2ord(int year, short month, short day) {
             day);
 }
 
-_tuple_three DateTime::ord2ymd(long long n) {
+DT_YearMonthDay DateTime::ord2ymd(long long n) {
 
     short factor = 1;
     if (n < 0)
@@ -245,7 +215,7 @@ _tuple_three DateTime::ord2ymd(long long n) {
 
     // Default symptoms for XXXX/12/31
     if (n1 == 4 or n100 == 4) {
-        return _tuple_three(year - 1, 12, 31);
+        return DT_YearMonthDay(year - 1, 12, 31);
     }
 
     /*
@@ -261,7 +231,7 @@ _tuple_three DateTime::ord2ymd(long long n) {
         preceding -= _DAYS_IN_MONTH[month] + (month == 2 and leapYear);
     }
     n -= preceding;
-    return  _tuple_three( (factor) * year, month, n + 1);
+    return  DT_YearMonthDay( (factor) * year, month, n + 1);
 }
 
 int DateTime::hms2ord(int hour, int min, int sec) {
@@ -269,14 +239,14 @@ int DateTime::hms2ord(int hour, int min, int sec) {
     return seconds;
 }
 
-_tuple_three DateTime::ord2hms(int n) {
+DT_HourMinSec DateTime::ord2hms(int n) {
     int hours = n / _SI1H;
     n %= _SI1H;
     int min = n / _SI1M;
     n %= _SI1M;
     int sec = n;
 
-    return _tuple_three(hours, min, sec);
+    return DT_HourMinSec(hours, min, sec);
 }
 
 DateTime& DateTime::operator=(const DateTime &dt) {
