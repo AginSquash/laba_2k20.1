@@ -20,7 +20,7 @@ void debug_print(std::string debug_text, int value)
 #endif
 }
 
-int DateTime::addDateTime(int type, int count) {
+DateTime DateTime::addDateTime(int type, int count) {
     int year = 0;
     int mon = 0;
     int day = 1;
@@ -52,18 +52,18 @@ int DateTime::addDateTime(int type, int count) {
     return addDateTime(year, mon, day, hour, min, sec);
 }
 
-int DateTime::addDateTime(int year, int mon, int day, int hour, int min, int sec) {
+DateTime DateTime::addDateTime(int year, int mon, int day, int hour, int min, int sec) {
     if (checkDate(year, mon, day, true)) {
         int time2add = hms2ord(hour, min, sec);
         debug_print("time2add", time2add);
         year++;
         long long date2add = ymd2ord(year, mon, day);
         debug_print("date2add", date2add);
-        dt_days += date2add + ((dt_seconds + time2add) / _SI24H);
-        dt_seconds = (dt_seconds + time2add) % _SI24H;
-        return 0;
+        long long daysReturn  = dt_days + date2add + ((dt_seconds + time2add) / _SI24H);
+        int secondsReturn = (dt_seconds + time2add) % _SI24H;
+        return DateTime(daysReturn, secondsReturn, true);
     }
-    return -1;
+    return DateTime(0, 0, true);
 }
 
 bool DateTime::checkDate(int year, int mon, int day, bool isAddingDate) {
@@ -104,13 +104,14 @@ bool DateTime::checkRange(int value, int min, int max) {
     return true;
 }
 
-DT_returnType DateTime::getDateTime()
+DT_result DateTime::getDateTime()
 {
     DT_YearMonthDay ymd = ord2ymd(dt_days);
     DT_HourMinSec hms = ord2hms(dt_seconds);
     
-    DT_returnType dtReturnType(ymd.year, ymd.month, ymd.day, hms.hour, hms.min, hms.sec);
-    dtReturnType.setWeekday();
+    DT_result dtReturnType(ymd.year, ymd.month, ymd.day, hms.hour, hms.min, hms.sec);
+    if (!isRange)
+        dtReturnType.setWeekday();
     return dtReturnType;
 }
 
@@ -120,7 +121,7 @@ int DateTime::abs(int value){
     return value;
 }
 
-int DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec)
+DateTime DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, int sec)
 {
     if (checkDate(year, mon, day, true)) {
         int time2sub = hms2ord(hour, min, sec);
@@ -128,11 +129,11 @@ int DateTime::subtractDateTime(int year, int mon, int day, int hour, int min, in
         long long date2sub = ymd2ord(year, mon, day);
         debug_print("date2sub", date2sub);
 
-        dt_days -= date2sub + (abs((dt_seconds - time2sub)) / _SI24H);
-        dt_seconds = abs((dt_seconds - time2sub)) % _SI24H;
-        return 0;
+        long long daysReturn = dt_days - date2sub + (abs((dt_seconds - time2sub)) / _SI24H);
+        int secondsReturn  = abs((dt_seconds - time2sub)) % _SI24H;
+        return DateTime(daysReturn, secondsReturn, true);
     }
-    return -1;
+    return DateTime(0,0, true);
 }
 
 DateTime::DateTime() { }
@@ -155,6 +156,10 @@ DateTime::DateTime(int year, int mon, int day, int hour, int min, int sec)
         std::cout << "Date is incorrect" << std::endl;
         exit(1);
     }
+
+}
+
+DateTime::DateTime(long long days, int seconds, bool isRange) : dt_days(days), dt_seconds(seconds), isRange(isRange) {
 
 }
 
@@ -260,7 +265,7 @@ std::ostream& operator<<(std::ostream &out, DateTime &dt) {
 }
 
 int DateTime::operator[](const DT_timeType dtType) {
-    DT_returnType dtTimeType = getDateTime();
+    DT_result dtTimeType = getDateTime();
     switch (dtType) {
         case AT_YEAR:
             return dtTimeType.year;
@@ -284,28 +289,28 @@ int DateTime::operator[](const DT_timeType dtType) {
 }
 
 DateTime& DateTime::operator+= (DateTime &dt) {
-    DT_returnType dtReturn = dt.getDateTime();
-    addDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
+    DT_result dtReturn = dt.getDateTime();
+    *this = addDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
 
     return *this;
 }
 
 DateTime DateTime::operator+ (DateTime dt) {
-    DateTime newDt = *this;
-    newDt += dt;
+    DT_result dtReturn = dt.getDateTime();
+    DateTime newDt = addDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
     return newDt;
 }
 
 DateTime& DateTime::operator-= (DateTime &dt) {
-    DT_returnType dtReturn = dt.getDateTime();
-    subtractDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
+    DT_result dtReturn = dt.getDateTime();
+    *this = subtractDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
 
     return *this;
 }
 
 DateTime DateTime::operator- (DateTime dt) {
-    DateTime newDt = *this;
-    newDt -= dt;
+    DT_result dtReturn = dt.getDateTime();
+    DateTime newDt = subtractDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
     return newDt;
 }
 

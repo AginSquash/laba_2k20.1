@@ -38,7 +38,7 @@ struct DT_HourMinSec
     }
 };
 
-struct DT_returnType
+struct DT_result
 {
     int year  = 0;
     int month = 0;
@@ -50,7 +50,7 @@ struct DT_returnType
 
     std::string weekday = "";
 
-    DT_returnType(int year, int month, int day, int hour, int min, int sec) {
+    DT_result(int year, int month, int day, int hour, int min, int sec) {
         this->year = year;
         this->month = month;
         this->day = day;
@@ -80,7 +80,7 @@ struct DT_returnType
         return  (addingValue + _value);
     }
 
-    friend std::ostream& operator << (std::ostream &out, const DT_returnType &dtReturnType)
+    friend std::ostream& operator << (std::ostream &out, const DT_result &dtReturnType)
     {
         return out << parseDT(dtReturnType.year, 4) << "-" << parseDT(dtReturnType.month) << "-" << parseDT(dtReturnType.day) << dtReturnType.weekday
         << " " << parseDT(dtReturnType.hour) << ":" << parseDT(dtReturnType.min) + ":" + parseDT(dtReturnType.sec);
@@ -126,6 +126,8 @@ private:
     int days_in_month(int year, int month);
     int days_before_month(int year, int month);
 
+    bool isRange = false;
+
 public:
     long long ymd2ord(int year, short month, short day);
     DT_YearMonthDay ord2ymd(long long n);
@@ -134,9 +136,18 @@ public:
     DT_HourMinSec ord2hms(int n);
 
     DateTime(int year, int mon, int day, int hour, int min, int sec);
-    DateTime(long long days, int seconds);
+    DateTime(long long days, int seconds, bool isRange = false);
     DateTime();
 
+    DT_result getDateTime();
+
+    bool checkDate(int year, int mon, int day, bool isAddingDate = false);
+    bool checkDateTime(int year, int mon, int day, int hour, int min, int sec);
+    DateTime addDateTime(int year, int mon, int day, int hour, int min, int sec);
+    DateTime addDateTime(int type, int count);
+    DateTime subtractDateTime(int year, int mon, int day, int hour, int min, int sec);
+
+    // override-func
     friend std::ostream& operator<<(std::ostream &out, DateTime &dt);
     DateTime& operator= (const DateTime &dt);
     int operator[] (const DT_timeType dtType);
@@ -151,15 +162,7 @@ public:
     friend bool operator>= (const DateTime &dt1, const DateTime &dt2);
     friend bool operator< (const DateTime &dt1, const DateTime &dt2);
     friend bool operator<= (const DateTime &dt1, const DateTime &dt2);
-
     operator int();
-
-    DT_returnType getDateTime();
-    bool checkDate(int year, int mon, int day, bool isAddingDate = false);
-    bool checkDateTime(int year, int mon, int day, int hour, int min, int sec);
-    int addDateTime(int year, int mon, int day, int hour, int min, int sec);
-    int addDateTime(int type, int count);
-    int subtractDateTime(int year, int mon, int day, int hour, int min, int sec);
 };
 
 #endif

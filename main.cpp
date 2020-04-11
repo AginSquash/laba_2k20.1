@@ -81,11 +81,13 @@ int main() {
     DateTime dt1(  10, 04, 5, 5, 1, 0);
     DateTime dt2(2020, 03, 24, 0, 0, 0);
 
-    DateTime dt3 = dt - dt1;
-    cout << int(dt3) << endl;
+    DateTime dt3 = dt + dt1;
+    //dt += dt1;
+   // DateTime dt3 = dt + dt1;
+    //cout << int(dt3) << endl;
 
-    dt += dt1;
-    cout << dt << endl;
+    //dt += dt1;
+    cout << dt3 << endl;
 
     if (dt >= dt2)
     {
