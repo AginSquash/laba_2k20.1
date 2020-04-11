@@ -68,21 +68,14 @@ int OOP()
 // Collab with Karina Romanova
 
 int main() {
-    //OOP();
-    //DateTime dt();
-    //long long n =  dt.ymd2ord(2018, 9, 23);
-    //cout << dt.ord2ymd(n);
-    //int n = dt.hms2ord(23, 43, 24);
-    //dt.ord2hms(n);
-
 
 #ifdef DEBUG
     DateTime dt(2020, 03, 24, 0, 0, 0);
     DateTime dt1(  10, 04, 5, 5, 1, 0);
     DateTime dt2(2020, 03, 24, 0, 0, 0);
 
-    DateTime dt3 = dt + dt1;
-    //dt += dt1;
+    DateTime dt3 = dt - dt1;
+    dt3 -= dt1;
    // DateTime dt3 = dt + dt1;
     //cout << int(dt3) << endl;
 
@@ -95,6 +88,9 @@ int main() {
     }
 
     cout << dt1[AT_DAY] << endl;
+#endif
+#ifndef DEBUG
+    OOP();
 #endif
     return 0;
 }

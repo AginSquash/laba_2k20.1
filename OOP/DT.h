@@ -48,6 +48,11 @@ struct DT_result
     int min   = 0;
     int sec   = 0;
 
+    long long daysTotal = 0;
+    int secondsTotal = 0;
+
+    bool isRange = false;
+
     std::string weekday = "";
 
     DT_result(int year, int month, int day, int hour, int min, int sec) {
@@ -57,6 +62,19 @@ struct DT_result
         this->hour = hour;
         this->min = min;
         this->sec = sec;
+    }
+
+    DT_result(int year, int month, int day, int hour, int min, int sec, long long daysTotal, int secondsTotal) {
+        this->year = year;
+        this->month = month;
+        this->day = day;
+        this->hour = hour;
+        this->min = min;
+        this->sec = sec;
+        this->daysTotal = daysTotal;
+        this->secondsTotal = secondsTotal;
+
+        isRange = true;
     }
 
     void setWeekday()
@@ -125,6 +143,8 @@ private:
     long long days_before_year(int year);
     int days_in_month(int year, int month);
     int days_before_month(int year, int month);
+    std::string parseDT(int value, int length = 2);
+
 
     bool isRange = false;
 
@@ -139,13 +159,16 @@ public:
     DateTime(long long days, int seconds, bool isRange = false);
     DateTime();
 
-    DT_result getDateTime();
+    std::string getDateTime();
 
     bool checkDate(int year, int mon, int day, bool isAddingDate = false);
     bool checkDateTime(int year, int mon, int day, int hour, int min, int sec);
     DateTime addDateTime(int year, int mon, int day, int hour, int min, int sec);
     DateTime addDateTime(int type, int count);
     DateTime subtractDateTime(int year, int mon, int day, int hour, int min, int sec);
+
+    DateTime addDaysSeconds(long long days, int seconds);
+    DateTime subtractDaysSeconds(long long days, int seconds);
 
     // override-func
     friend std::ostream& operator<<(std::ostream &out, DateTime &dt);

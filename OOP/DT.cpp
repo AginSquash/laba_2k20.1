@@ -59,11 +59,15 @@ DateTime DateTime::addDateTime(int year, int mon, int day, int hour, int min, in
         year++;
         long long date2add = ymd2ord(year, mon, day);
         debug_print("date2add", date2add);
-        long long daysReturn  = dt_days + date2add + ((dt_seconds + time2add) / _SI24H);
-        int secondsReturn = (dt_seconds + time2add) % _SI24H;
-        return DateTime(daysReturn, secondsReturn, true);
+        return addDaysSeconds(date2add, time2add);
     }
     return DateTime(0, 0, true);
+}
+
+DateTime DateTime::addDaysSeconds(long long days, int seconds) {
+    long long daysReturn  = dt_days + days + ((dt_seconds + seconds) / _SI24H);
+    int secondsReturn = (dt_seconds + seconds) % _SI24H;
+    return DateTime(daysReturn, secondsReturn, true);
 }
 
 bool DateTime::checkDate(int year, int mon, int day, bool isAddingDate) {
@@ -129,11 +133,15 @@ DateTime DateTime::subtractDateTime(int year, int mon, int day, int hour, int mi
         long long date2sub = ymd2ord(year, mon, day);
         debug_print("date2sub", date2sub);
 
-        long long daysReturn = dt_days - date2sub + (abs((dt_seconds - time2sub)) / _SI24H);
-        int secondsReturn  = abs((dt_seconds - time2sub)) % _SI24H;
-        return DateTime(daysReturn, secondsReturn, true);
+        return subtractDaysSeconds(date2sub, time2sub);
     }
     return DateTime(0,0, true);
+}
+
+DateTime DateTime::subtractDaysSeconds(long long days, int seconds) {
+    long long daysReturn = dt_days - days + (abs((dt_seconds - seconds)) / _SI24H);
+    int secondsReturn  = abs((dt_seconds - seconds)) % _SI24H;
+    return DateTime(daysReturn, secondsReturn, true);
 }
 
 DateTime::DateTime() { }
@@ -289,28 +297,24 @@ int DateTime::operator[](const DT_timeType dtType) {
 }
 
 DateTime& DateTime::operator+= (DateTime &dt) {
-    DT_result dtReturn = dt.getDateTime();
-    *this = addDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
+    *this = addDaysSeconds(dt.dt_days, dt.dt_seconds);
 
     return *this;
 }
 
 DateTime DateTime::operator+ (DateTime dt) {
-    DT_result dtReturn = dt.getDateTime();
-    DateTime newDt = addDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
+    DateTime newDt = addDaysSeconds(dt.dt_days, dt.dt_seconds);
     return newDt;
 }
 
 DateTime& DateTime::operator-= (DateTime &dt) {
-    DT_result dtReturn = dt.getDateTime();
-    *this = subtractDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
+    *this = subtractDaysSeconds(dt.dt_days, dt.dt_seconds);
 
     return *this;
 }
 
 DateTime DateTime::operator- (DateTime dt) {
-    DT_result dtReturn = dt.getDateTime();
-    DateTime newDt = subtractDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
+    DateTime newDt = subtractDaysSeconds(dt.dt_days, dt.dt_seconds);
     return newDt;
 }
 
