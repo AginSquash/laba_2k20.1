@@ -103,7 +103,8 @@ bool DateTime::checkRange(int value, int min, int max) {
         return false;
     return true;
 }
-
+/*
+<<<<<<< HEAD
 std::string DateTime::parseDT(int value, int length) {
     std::string addingValue = "";
     if (value < 0)
@@ -129,11 +130,16 @@ TimeTuple DateTime::getDateTime()
 }
 
 std::string DateTime::dateTimeToString()
+=======
+        */
+DT_returnType DateTime::getDateTime()
 {
-    TimeTuple time = getDateTime();
-    std::string output = parseDT(get<0>(time), 4) +  "-" + parseDT(get<1>(time)) + "-" + parseDT(get<2>(time)) + "  " +
-              parseDT(get<3>(time)) + ":" + parseDT(get<4>(time)) + ":" + parseDT(get<5>(time));
-    return output;
+    _tuple_three t1 = ord2ymd(dt_days);
+    _tuple_three t2 = ord2hms(dt_seconds);
+    
+    DT_returnType dtReturnType(t1.value0, t1.value1, t1.value2, t2.value0, t2.value1, t2.value2);
+    dtReturnType.setWeekday();
+    return dtReturnType;
 }
 
 int DateTime::abs(int value){
@@ -216,7 +222,7 @@ long long DateTime::ymd2ord(int year, short month, short day) {
             day);
 }
 
-std::tuple<int, int, int> DateTime::ord2ymd(long long n) {
+_tuple_three DateTime::ord2ymd(long long n) {
 
     short factor = 1;
     if (n < 0)
@@ -239,7 +245,7 @@ std::tuple<int, int, int> DateTime::ord2ymd(long long n) {
 
     // Default symptoms for XXXX/12/31
     if (n1 == 4 or n100 == 4) {
-        return std::tuple<int, int, int>(year - 1, 12, 31);
+        return _tuple_three(year - 1, 12, 31);
     }
 
     /*
@@ -255,7 +261,7 @@ std::tuple<int, int, int> DateTime::ord2ymd(long long n) {
         preceding -= _DAYS_IN_MONTH[month] + (month == 2 and leapYear);
     }
     n -= preceding;
-    return  std::tuple<int, int, int>( (factor) * year, month, n + 1);
+    return  _tuple_three( (factor) * year, month, n + 1);
 }
 
 int DateTime::hms2ord(int hour, int min, int sec) {
@@ -263,14 +269,14 @@ int DateTime::hms2ord(int hour, int min, int sec) {
     return seconds;
 }
 
-std::tuple<int, int, int> DateTime::ord2hms(int n) {
+_tuple_three DateTime::ord2hms(int n) {
     int hours = n / _SI1H;
     n %= _SI1H;
     int min = n / _SI1M;
     n %= _SI1M;
     int sec = n;
 
-    return std::tuple<int, int, int>(hours, min, sec);
+    return _tuple_three(hours, min, sec);
 }
 
 DateTime& DateTime::operator=(const DateTime &dt) {
@@ -280,36 +286,36 @@ DateTime& DateTime::operator=(const DateTime &dt) {
 }
 
 std::ostream& operator<<(std::ostream &out, DateTime &dt) {
-    return out << dt.dateTimeToString();
+    return out << dt.getDateTime();
 }
 
 int DateTime::operator[](const DT_timeType dtType) {
-    TimeTuple  dtTimeType = getDateTime();
+    DT_returnType dtTimeType = getDateTime();
     switch (dtType) {
         case AT_YEAR:
-            return get<0>(dtTimeType);
+            return dtTimeType.year;
             break;
         case AT_MON:
-            return get<1>(dtTimeType);
+            return dtTimeType.month;
             break;
         case AT_DAY:
-            return get<2>(dtTimeType);
+            return dtTimeType.day;
             break;
         case AT_HOUR:
-            return get<3>(dtTimeType);
+            return dtTimeType.hour;
             break;
         case AT_MIN:
-            return get<4>(dtTimeType);
+            return dtTimeType.min;
             break;
         case AT_SEC:
-            return get<5>(dtTimeType);
+            return dtTimeType.sec;
             break;
     }
 }
 
 DateTime& DateTime::operator+= (DateTime &dt) {
-    TimeTuple dtReturn = dt.getDateTime();
-    addDateTime(get<0>(dtReturn), get<1>(dtReturn), get<2>(dtReturn), get<3>(dtReturn), get<4>(dtReturn), get<5>(dtReturn));
+    DT_returnType dtReturn = dt.getDateTime();
+    addDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
 
     return *this;
 }
@@ -321,8 +327,8 @@ DateTime DateTime::operator+ (DateTime dt) {
 }
 
 DateTime& DateTime::operator-= (DateTime &dt) {
-    TimeTuple dtReturn = dt.getDateTime();
-    subtractDateTime(get<0>(dtReturn), get<1>(dtReturn), get<2>(dtReturn), get<3>(dtReturn), get<4>(dtReturn), get<5>(dtReturn));
+    DT_returnType dtReturn = dt.getDateTime();
+    subtractDateTime(dtReturn.year, dtReturn.month, dtReturn.day, dtReturn.hour, dtReturn.min, dtReturn.sec);
 
     return *this;
 }
