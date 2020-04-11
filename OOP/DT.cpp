@@ -108,15 +108,35 @@ bool DateTime::checkRange(int value, int min, int max) {
     return true;
 }
 
-DT_result DateTime::getDateTime()
+std::string DateTime::parseDT(int value, int length){
+    std::string addingValue = "";
+    if (value < 0)
+    {
+        value *= (-1);
+        addingValue = "-";
+    }
+    std::string _value = std::to_string(value);
+    while (_value.length() < length)
+    {
+        _value = "0" + _value;
+    }
+    return  (addingValue + _value);
+}
+
+
+
+std::string DateTime::getDateTime()
 {
     DT_YearMonthDay ymd = ord2ymd(dt_days);
     DT_HourMinSec hms = ord2hms(dt_seconds);
-    
-    DT_result dtReturnType(ymd.year, ymd.month, ymd.day, hms.hour, hms.min, hms.sec);
-    if (!isRange)
-        dtReturnType.setWeekday();
-    return dtReturnType;
+
+    Date date(ymd.day, ymd.month, ymd.year);
+    std::string weekday = " (" + date.getDayResult() + ") ";
+
+    std::string output = parseDT(ymd.year, 4) + "-" + parseDT(ymd.month) + "-" + parseDT(ymd.day) + (isRange ? " " : weekday)
+            + " " + parseDT(hms.hour) + ":" + parseDT(hms.min) + ":" + parseDT(hms.sec) + (isRange ? " ( DAYS: " + std::to_string(dt_days) +  " / SECONDS: " + std::to_string(dt_seconds) + " )" : "");
+
+    return output;
 }
 
 int DateTime::abs(int value){
@@ -273,26 +293,19 @@ std::ostream& operator<<(std::ostream &out, DateTime &dt) {
 }
 
 int DateTime::operator[](const DT_timeType dtType) {
-    DT_result dtTimeType = getDateTime();
     switch (dtType) {
         case AT_YEAR:
-            return dtTimeType.year;
-            break;
+            return ord2ymd(dt_days).year;
         case AT_MON:
-            return dtTimeType.month;
-            break;
+            return ord2ymd(dt_days).month;
         case AT_DAY:
-            return dtTimeType.day;
-            break;
+            return ord2ymd(dt_days).day;
         case AT_HOUR:
-            return dtTimeType.hour;
-            break;
+            return ord2hms(dt_seconds).hour;
         case AT_MIN:
-            return dtTimeType.min;
-            break;
+            return ord2hms(dt_seconds).min;
         case AT_SEC:
-            return dtTimeType.sec;
-            break;
+            return ord2hms(dt_seconds).sec;
     }
 }
 

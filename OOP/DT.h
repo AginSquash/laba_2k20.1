@@ -38,73 +38,6 @@ struct DT_HourMinSec
     }
 };
 
-struct DT_result
-{
-    int year  = 0;
-    int month = 0;
-    int day   = 0;
-
-    int hour  = 0;
-    int min   = 0;
-    int sec   = 0;
-
-    long long daysTotal = 0;
-    int secondsTotal = 0;
-
-    bool isRange = false;
-
-    std::string weekday = "";
-
-    DT_result(int year, int month, int day, int hour, int min, int sec) {
-        this->year = year;
-        this->month = month;
-        this->day = day;
-        this->hour = hour;
-        this->min = min;
-        this->sec = sec;
-    }
-
-    DT_result(int year, int month, int day, int hour, int min, int sec, long long daysTotal, int secondsTotal) {
-        this->year = year;
-        this->month = month;
-        this->day = day;
-        this->hour = hour;
-        this->min = min;
-        this->sec = sec;
-        this->daysTotal = daysTotal;
-        this->secondsTotal = secondsTotal;
-
-        isRange = true;
-    }
-
-    void setWeekday()
-    {
-        Date date(day, month, year);
-        this->weekday =  " (" + date.getDayResult() +  ") ";
-    }
-
-    static std::string parseDT(int value, int length = 2) {
-        std::string addingValue = "";
-        if (value < 0)
-        {
-            value *= (-1);
-            addingValue = "-";
-        }
-        std::string _value = std::to_string(value);
-        while (_value.length() < length)
-        {
-            _value = "0" + _value;
-        }
-        return  (addingValue + _value);
-    }
-
-    friend std::ostream& operator << (std::ostream &out, const DT_result &dtReturnType)
-    {
-        return out << parseDT(dtReturnType.year, 4) << "-" << parseDT(dtReturnType.month) << "-" << parseDT(dtReturnType.day) << dtReturnType.weekday
-        << " " << parseDT(dtReturnType.hour) << ":" << parseDT(dtReturnType.min) + ":" + parseDT(dtReturnType.sec);
-    }
-};
-
 class DateTime
 {
 /*
@@ -143,7 +76,7 @@ private:
     long long days_before_year(int year);
     int days_in_month(int year, int month);
     int days_before_month(int year, int month);
-    std::string parseDT(int value, int length = 2);
+    static std::string parseDT(int value, int length = 2);
 
 
     bool isRange = false;
